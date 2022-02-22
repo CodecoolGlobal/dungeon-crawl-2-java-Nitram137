@@ -36,7 +36,7 @@ public class Cell implements Drawable {
             return gameMap.getCell(x + dx, y + dy);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e);
-            return gameMap.getCell(x, y);
+            return null;
         }
     }
 
