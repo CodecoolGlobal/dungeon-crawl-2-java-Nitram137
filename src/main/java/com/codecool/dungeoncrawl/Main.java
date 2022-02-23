@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
@@ -39,7 +41,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ui.setPrefWidth(200);
+        ui.setPrefWidth(300);
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
@@ -139,13 +141,13 @@ public class Main extends Application {
     }
 
     private void displayInventory() {
-        Map<String, Integer> inventory = map.getPlayer().getInventory();
+        Map<String, List<Item>> inventory = map.getPlayer().getInventory();
         StringBuilder sb = new StringBuilder();
         if (inventory.size() == 0) {
             sb.append("Empty!");
         }
         for (String key : inventory.keySet()) {
-            sb.append(key).append(": ").append(inventory.get(key));
+            sb.append(key).append(": ").append(inventory.get(key).size());
             sb.append("\n");
         }
         inventoryLabel.setText(sb.toString());

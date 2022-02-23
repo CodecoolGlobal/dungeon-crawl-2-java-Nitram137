@@ -3,12 +3,15 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Actor implements Drawable {
 
-    private final HashMap<String, Integer> inventory = new HashMap<>();
+    protected final Map<String, List<Item>> inventory = new HashMap<>();
 
     private Cell cell;
     private int health = 10;
@@ -30,7 +33,7 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    public HashMap<String, Integer> getInventory() {
+    public Map<String, List<Item>> getInventory() {
         return inventory;
     }
 

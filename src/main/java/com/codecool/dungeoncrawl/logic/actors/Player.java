@@ -1,7 +1,10 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import java.util.HashMap;
+import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Actor {
 
@@ -27,13 +30,15 @@ public class Player extends Actor {
     }
 
     public void pickUpItem() {
-        HashMap<String, Integer> inventory = this.getInventory();
-        String itemName = this.getCell().getItem().getClass().getSimpleName();
+        Item item = getCell().getItem();
+        String itemName = item.getTileName();
         if (inventory.containsKey(itemName)) {
-            Integer counter = inventory.get(itemName);
-            inventory.put(itemName, counter + 1);
+            List<Item> items = inventory.get(itemName);
+            items.add(item);
         } else {
-            inventory.put(itemName, 1);
+            List<Item> items = new ArrayList<>();
+            items.add(item);
+            inventory.put(itemName, items);
         }
     }
 
