@@ -34,7 +34,7 @@ public class Skeleton extends Actor {
 
     @Override
     public void act() {
-        if(getHealth() > 0 && getCell().isPlayerNear()) moveRandom();
+        if(getHealth() > 0 && getCell().isPlayerNear(2)) moveRandom();
     }
 
     public int getDamage() { return -strength; }

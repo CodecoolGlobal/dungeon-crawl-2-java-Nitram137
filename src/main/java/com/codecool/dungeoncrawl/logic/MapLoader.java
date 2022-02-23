@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.actors.NuclearCloud;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
@@ -35,6 +36,10 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new Skeleton(cell));
+                            break;
+                        case 'N':
+                            cell.setType(CellType.FLOOR);
+                            map.addEnemy((new NuclearCloud(cell)));
                             break;
                         case '@':
                             cell.setType(CellType.FLOOR);
