@@ -37,8 +37,6 @@ public class Skeleton extends Actor {
         if(getHealth() > 0 && getCell().isPlayerNear(2)) moveRandom();
     }
 
-    public int getDamage() { return -strength; }
-
     @Override
     public String getTileName() {
         return "skeleton";

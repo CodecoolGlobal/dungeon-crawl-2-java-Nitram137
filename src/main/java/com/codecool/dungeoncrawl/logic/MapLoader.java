@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.NuclearCloud;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.actors.Shadow;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
@@ -36,6 +37,10 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             map.addEnemy(new Skeleton(cell));
+                            break;
+                        case 'S':
+                            cell.setType(CellType.FLOOR);
+                            map.addEnemy(new Shadow(cell));
                             break;
                         case 'N':
                             cell.setType(CellType.FLOOR);

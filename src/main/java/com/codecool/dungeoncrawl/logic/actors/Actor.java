@@ -42,7 +42,7 @@ public abstract class Actor implements Drawable {
 
     public void modifyHealth(int change) { health += change; }
 
-    public int getDamage() { return strength; }
+    public int getDamage() { return -strength; }
 
     public Cell getCell() {
         return cell;
