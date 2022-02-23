@@ -32,7 +32,7 @@ public class Tiles {
         tileMap.put("Golden key", new Tile(16,23));
         tileMap.put("Potion", new Tile(23, 23));
         tileMap.put("Big Potion", new Tile(26, 23));
-        tileMap.put("Thunderfury, Blessed Blade of the Windseeker", new Tile(4, 29));
+        tileMap.put("Thunderfury", new Tile(4, 29));
         tileMap.put("Frostmourne", new Tile(2, 30));
         tileMap.put("The Grim Reaper", new Tile(3, 24));
         tileMap.put("Mjolnir", new Tile(5, 29));

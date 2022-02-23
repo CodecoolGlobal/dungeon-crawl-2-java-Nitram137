@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 public enum WeaponType {
-    THUNDERFURY("Thunderfury, Blessed Blade of the Windseeker", 60),
+    THUNDERFURY("Thunderfury", 60),
     FROSTMOURNE("Frostmourne", 500),
     SCYTHE("The Grim Reaper", 30),
     MJOLNIR("Mjolnir", 60),
