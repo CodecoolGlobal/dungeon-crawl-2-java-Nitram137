@@ -19,11 +19,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Application {
     GridPane ui = new GridPane();
-    Button pickUpItem;
+    Button pickUpItem = new Button("Pick up");
     Label inventoryLabel = new Label();
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
@@ -45,8 +45,12 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
 
-        ui.add(new Label("Inventory: "), 0, 1);
-        ui.add(inventoryLabel, 1, 2);
+        ui.add(new Label("Inventory: "), 0, 2);
+        ui.add(inventoryLabel, 1, 3);
+
+        ui.add(pickUpItem, 0, 1);
+        addEventListenerToPickUpButton();
+        disablePickUpButton();
 
         BorderPane borderPane = new BorderPane();
 
@@ -104,16 +108,13 @@ public class Main extends Application {
     }
 
     private void checkForItems() {
-        deleteButtonIfExists();
+        disablePickUpButton();
         if (map.getPlayer().isPlayerStandingInItem()) {
-            createPickUpButton();
+            activatePickUpButton();
         }
     }
 
-    private void createPickUpButton() {
-        pickUpItem = new Button("Pick up");
-        pickUpItem.setFocusTraversable(false);
-        ui.add(pickUpItem, 0, 3);
+    private void addEventListenerToPickUpButton() {
         pickUpItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -121,25 +122,30 @@ public class Main extends Application {
                 player.pickUpItem();
                 map.getPlayer().getCell().setItem(null);
                 displayInventory();
-                deleteButtonIfExists();
+                disablePickUpButton();
             }
         });
     }
 
-    private void deleteButtonIfExists() {
-        if (pickUpItem != null) {
-            ui.getChildren().remove(pickUpItem);
+    private void activatePickUpButton() {
+        pickUpItem.setDisable(false);
+        pickUpItem.setFocusTraversable(false);
+    }
+
+    private void disablePickUpButton() {
+        if (!pickUpItem.isDisabled()) {
+            pickUpItem.setDisable(true);
         }
     }
 
     private void displayInventory() {
-        HashMap<String, Integer> inventory = map.getPlayer().getInventory();
+        Map<String, Integer> inventory = map.getPlayer().getInventory();
         StringBuilder sb = new StringBuilder();
         if (inventory.size() == 0) {
             sb.append("Empty!");
         }
         for (String key : inventory.keySet()) {
-            sb.append(key + ": " + inventory.get(key));
+            sb.append(key).append(": ").append(inventory.get(key));
             sb.append("\n");
         }
         inventoryLabel.setText(sb.toString());
