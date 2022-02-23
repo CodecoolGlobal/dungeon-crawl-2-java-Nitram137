@@ -11,7 +11,7 @@ public abstract class Actor implements Drawable {
     private final HashMap<String, Integer> inventory = new HashMap<>();
 
     private Cell cell;
-    private int health = 10;
+    protected int health = 10;
     protected int strength;
 
     public Actor(Cell cell) {
@@ -30,6 +30,8 @@ public abstract class Actor implements Drawable {
         }
     }
 
+    public abstract void act();
+
     public HashMap<String, Integer> getInventory() {
         return inventory;
     }
@@ -40,7 +42,7 @@ public abstract class Actor implements Drawable {
 
     public void modifyHealth(int change) { health += change; }
 
-    public int getDamage() { return strength; }
+    public int getDamage() { return -strength; }
 
     public Cell getCell() {
         return cell;

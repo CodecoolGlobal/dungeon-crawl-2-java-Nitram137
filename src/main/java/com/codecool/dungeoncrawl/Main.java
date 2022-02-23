@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,7 +20,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.List;
 import java.util.HashMap;
+
 
 public class Main extends Application {
     GridPane ui = new GridPane();
@@ -83,6 +86,7 @@ public class Main extends Application {
                 break;
         }
         checkForItems();
+        handleEnemies();
     }
 
     private void refresh() {
@@ -101,6 +105,11 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    private void handleEnemies() {
+        List<Actor> enemies = map.getEnemies();
+        for(Actor enemy : enemies) enemy.act();
     }
 
     private void checkForItems() {
