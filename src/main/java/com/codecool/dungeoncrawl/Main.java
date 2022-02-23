@@ -3,10 +3,12 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -77,7 +79,7 @@ public class Main extends Application {
                 break;
         }
         if (isPlayerStandInItem()) {
-            createButton("Pick up item");
+            createPickUpButton();
         } else {
             deleteButtonIfExists();
         }
@@ -105,10 +107,18 @@ public class Main extends Application {
         return map.getPlayer().getCell().getItem() != null;
     }
 
-    private void createButton(String label) {
-        pickUpItem = new Button(label);
+    private void createPickUpButton() {
+        pickUpItem = new Button("Pick up item");
         pickUpItem.setFocusTraversable(false);
         ui.add(pickUpItem, 3, 3);
+        pickUpItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Player player = map.getPlayer();
+                player.pickUpItem();
+                map.getPlayer().getCell().setItem(null);
+            }
+        });
     }
 
     private void deleteButtonIfExists() {
