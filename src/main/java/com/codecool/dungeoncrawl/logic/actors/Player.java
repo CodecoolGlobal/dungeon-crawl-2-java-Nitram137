@@ -26,6 +26,11 @@ public class Player extends Actor {
         return "player";
     }
 
+    @Override
+    public void act() {
+
+    }
+
     public void pickUpItem() {
         HashMap<String, Integer> inventory = this.getInventory();
         String itemName = this.getCell().getItem().getClass().getSimpleName();
