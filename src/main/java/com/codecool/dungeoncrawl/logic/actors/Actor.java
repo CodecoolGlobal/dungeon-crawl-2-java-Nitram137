@@ -30,7 +30,7 @@ public abstract class Actor implements Drawable {
         }
     }
 
-    protected HashMap<String, Integer> getInventory() {
+    public HashMap<String, Integer> getInventory() {
         return inventory;
     }
 

@@ -19,9 +19,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+
 public class Main extends Application {
     GridPane ui = new GridPane();
     Button pickUpItem;
+    Label inventoryLabel = new Label();
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -42,6 +45,9 @@ public class Main extends Application {
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
 
+        ui.add(new Label("Inventory: "), 0, 1);
+        ui.add(inventoryLabel, 1, 2);
+
         BorderPane borderPane = new BorderPane();
 
         borderPane.setCenter(canvas);
@@ -54,6 +60,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        displayInventory();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -104,15 +111,17 @@ public class Main extends Application {
     }
 
     private void createPickUpButton() {
-        pickUpItem = new Button("Pick up item");
+        pickUpItem = new Button("Pick up");
         pickUpItem.setFocusTraversable(false);
-        ui.add(pickUpItem, 3, 3);
+        ui.add(pickUpItem, 0, 3);
         pickUpItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Player player = map.getPlayer();
                 player.pickUpItem();
                 map.getPlayer().getCell().setItem(null);
+                displayInventory();
+                deleteButtonIfExists();
             }
         });
     }
@@ -121,5 +130,18 @@ public class Main extends Application {
         if (pickUpItem != null) {
             ui.getChildren().remove(pickUpItem);
         }
+    }
+
+    private void displayInventory() {
+        HashMap<String, Integer> inventory = map.getPlayer().getInventory();
+        StringBuilder sb = new StringBuilder();
+        if (inventory.size() == 0) {
+            sb.append("Empty!");
+        }
+        for (String key : inventory.keySet()) {
+            sb.append(key + ": " + inventory.get(key));
+            sb.append("\n");
+        }
+        inventoryLabel.setText(sb.toString());
     }
 }
