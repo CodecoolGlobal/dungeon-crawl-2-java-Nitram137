@@ -75,11 +75,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        if (map.getPlayer().isPlayerStandingInItem()) {
-            createPickUpButton();
-        } else {
-            deleteButtonIfExists();
-        }
+        checkForItems();
     }
 
     private void refresh() {
@@ -98,6 +94,13 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+    }
+
+    private void checkForItems() {
+        deleteButtonIfExists();
+        if (map.getPlayer().isPlayerStandingInItem()) {
+            createPickUpButton();
+        }
     }
 
     private void createPickUpButton() {
