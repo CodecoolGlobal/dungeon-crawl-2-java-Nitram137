@@ -25,6 +25,8 @@ public class Cell implements Drawable {
         gameMap.getPlayer().modifyHealth(-damage);
     }
 
+    public int getPlayerStrength() { return gameMap.getPlayer().getDamage(); }
+
     public CellType getType() {
         return type;
     }
