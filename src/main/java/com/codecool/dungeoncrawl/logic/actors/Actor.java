@@ -4,7 +4,12 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
+import java.util.HashMap;
+
 public abstract class Actor implements Drawable {
+
+    private final HashMap<String, Integer> inventory = new HashMap<>();
+
     private Cell cell;
     private int health = 10;
     protected int strength;
@@ -23,6 +28,10 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
+    }
+
+    protected HashMap<String, Integer> getInventory() {
+        return inventory;
     }
 
     public int getHealth() {
