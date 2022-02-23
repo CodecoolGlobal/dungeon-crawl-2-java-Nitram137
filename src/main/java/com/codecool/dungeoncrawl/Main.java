@@ -4,7 +4,6 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,8 +18,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.util.function.Predicate;
 
 public class Main extends Application {
     GridPane ui = new GridPane();
@@ -78,7 +75,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        if (isPlayerStandInItem()) {
+        if (map.getPlayer().isPlayerStandingInItem()) {
             createPickUpButton();
         } else {
             deleteButtonIfExists();
@@ -101,10 +98,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-    }
-
-    private boolean isPlayerStandInItem() {
-        return map.getPlayer().getCell().getItem() != null;
     }
 
     private void createPickUpButton() {

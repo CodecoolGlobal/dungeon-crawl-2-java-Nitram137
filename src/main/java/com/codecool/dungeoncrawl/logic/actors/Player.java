@@ -23,4 +23,8 @@ public class Player extends Actor {
         }
     }
 
+    public boolean isPlayerStandingInItem() {
+        return this.getCell().getItem() != null;
+    }
+
 }
