@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Potion;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -84,6 +85,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+        displayUI();
         checkForItems();
     }
 
@@ -176,6 +178,11 @@ public class Main extends Application {
                     displayUI();
                 }
             });
+            if (inventory.get(key).get(0) instanceof Potion) {
+                if (map.getPlayer().isPlayerHealthFull()) {
+                    useButton.setDisable(true);
+                }
+            }
             useButton.setFocusTraversable(false);
             ui.add(useButton, 3, rowCounter);
             rowCounter++;
