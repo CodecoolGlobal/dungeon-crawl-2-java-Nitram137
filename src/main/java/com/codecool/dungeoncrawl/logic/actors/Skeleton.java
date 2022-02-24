@@ -8,7 +8,8 @@ public class Skeleton extends Actor {
 
     public Skeleton(Cell cell) {
         super(cell);
-        strength = 2;
+        health = 15;
+        strength = 5;
     }
 
     private enum Direction {

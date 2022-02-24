@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic.items;
 
-public enum PotionType {POTION("Potion", 5 ),
-                        BIG_POTION("Big Potion", 10);
+public enum PotionType {POTION("Potion", 10 ),
+                        BIG_POTION("Big Potion", 25);
 
     private final String name;
     private final int healthRegen;

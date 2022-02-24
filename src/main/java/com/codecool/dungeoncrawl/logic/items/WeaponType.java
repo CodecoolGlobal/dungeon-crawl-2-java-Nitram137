@@ -1,12 +1,12 @@
 package com.codecool.dungeoncrawl.logic.items;
 
 public enum WeaponType {
-    THUNDERFURY("Thunderfury", 60),
-    FROSTMOURNE("Frostmourne", 500),
-    SCYTHE("The Grim Reaper", 30),
-    MJOLNIR("Mjolnir", 60),
-    STORMBREAKER("Stormbreaker", 100),
-    STICK("Stick of Truth", 7);
+    THUNDERFURY("Thunderfury", 8),
+    MJOLNIR("Mjolnir", 12),
+    SCYTHE("The Grim Reaper", 16),
+    STORMBREAKER("Stormbreaker", 20),
+    FROSTMOURNE("Frostmourne", 100),
+    STICK("Stick of Truth", 420);
 
 
     private final String name;

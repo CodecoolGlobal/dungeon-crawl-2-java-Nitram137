@@ -7,7 +7,7 @@ public class Shadow extends Actor{
     public Shadow(Cell cell) {
         super(cell);
         strength = cell.getPlayerStrength();
-        health = 15;
+        health = 25;
     }
 
     @Override
