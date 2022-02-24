@@ -77,8 +77,28 @@ public class Cell implements Drawable {
         return y;
     }
 
-    public boolean isCellDoor() {
+    public boolean isCellClosedDoor() {
         return type == CellType.CLOSED_DOOR;
+    }
+
+    public boolean isCellFloor() {
+        return type == CellType.FLOOR;
+    }
+
+    public boolean isCellActor() {
+        return actor != null;
+    }
+
+    public boolean isCellOpenedDoor() {
+        return type == CellType.OPENED_DOOR;
+    }
+
+    public boolean isCellStairs() {
+        return type == CellType.STAIRS;
+    }
+
+    public boolean isCellFreeToMove () {
+        return (isCellOpenedDoor() || isCellFloor() || isCellStairs()) && !isCellActor();
     }
 
     public void setCellToOpenedDoor() {
