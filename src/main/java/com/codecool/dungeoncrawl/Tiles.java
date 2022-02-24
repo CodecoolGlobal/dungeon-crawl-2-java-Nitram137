@@ -38,6 +38,8 @@ public class Tiles {
         tileMap.put("Mjolnir", new Tile(5, 29));
         tileMap.put("Stormbreaker", new Tile(8, 29));
         tileMap.put("Stick of Truth", new Tile(0, 25));
+        tileMap.put("shadow", new Tile(24, 8));
+        tileMap.put("nuclear cloud", new Tile(4, 2));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

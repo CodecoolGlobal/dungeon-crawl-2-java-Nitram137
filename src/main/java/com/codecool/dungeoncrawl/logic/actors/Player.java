@@ -15,6 +15,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+        health = 20;
         strength = 5;
     }
 
@@ -32,6 +33,11 @@ public class Player extends Actor {
 
     public String getTileName() {
         return "player";
+    }
+
+    @Override
+    public void act() {
+
     }
 
     public void pickUpItem() {

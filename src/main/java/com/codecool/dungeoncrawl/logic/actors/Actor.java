@@ -33,6 +33,8 @@ public abstract class Actor implements Drawable {
         }
     }
 
+    public abstract void act();
+  
     public Map<String, List<Item>> getInventory() {
         return inventory;
     }
@@ -43,7 +45,7 @@ public abstract class Actor implements Drawable {
 
     public void modifyHealth(int change) { health += change; }
 
-    public int getDamage() { return strength; }
+    public int getDamage() { return -strength; }
 
     public Cell getCell() {
         return cell;

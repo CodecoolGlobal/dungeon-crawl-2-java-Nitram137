@@ -17,6 +17,20 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
+    public boolean isPlayerNear(int tiles) {
+        return Math.abs(x - gameMap.getPlayer().getX()) <= tiles && Math.abs(y - gameMap.getPlayer().getY()) <= tiles;
+    }
+
+    public void hurtPlayer(int damage) {
+        gameMap.getPlayer().modifyHealth(-damage);
+    }
+
+    public int getPlayerX() { return gameMap.getPlayer().getX(); }
+
+    public int getPlayerY() { return gameMap.getPlayer().getY(); }
+
+    public int getPlayerStrength() { return Math.abs(gameMap.getPlayer().getDamage()); }
+
     public CellType getType() {
         return type;
     }
