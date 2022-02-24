@@ -81,6 +81,10 @@ public class Cell implements Drawable {
         return type == CellType.CLOSED_DOOR;
     }
 
+    public boolean isCellFloor() {
+        return type == CellType.FLOOR;
+    }
+
     public void setCellToOpenedDoor() {
         type = CellType.OPENED_DOOR;
     }
