@@ -23,6 +23,7 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
+        if (health <= 0) { return; }
         Cell nextCell = cell.getNeighbor(dx, dy);
         if(nextCell == null) return;
         if(this instanceof Player) ((Player) this).attack(nextCell);

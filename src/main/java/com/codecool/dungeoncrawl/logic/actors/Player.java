@@ -126,4 +126,8 @@ public class Player extends Actor {
     public boolean isPlayerStandOnStairs() {
         return cell.isCellStairs();
     }
+
+    public boolean isPlayerAlive() {
+        return health > 0;
+    }
 }
