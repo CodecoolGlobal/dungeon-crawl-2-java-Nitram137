@@ -14,7 +14,7 @@ public abstract class Actor implements Drawable {
     protected final Map<String, List<Item>> inventory = new HashMap<>();
 
     private Cell cell;
-    private int health = 10;
+    protected int health = 10;
     protected int strength;
 
     public Actor(Cell cell) {
