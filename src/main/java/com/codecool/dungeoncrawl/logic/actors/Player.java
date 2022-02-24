@@ -122,4 +122,8 @@ public class Player extends Actor {
         }
         return null;
     }
+
+    public boolean isPlayerStandOnStairs() {
+        return cell.isCellStairs();
+    }
 }
