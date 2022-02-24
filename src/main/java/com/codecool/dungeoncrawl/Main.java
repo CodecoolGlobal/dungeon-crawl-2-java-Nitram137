@@ -82,28 +82,31 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        Player player = map.getPlayer();
+        Cell lastCell =  player.getCell();
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().move(0, -1);
-                scrollPane.setVvalue(scrollPane.getVvalue() - 0.05);
-                refresh();
+                player.move(0, -1);
+                if(lastCell != player.getCell())
+                    scrollPane.setVvalue(scrollPane.getVvalue() - 0.045);
                 break;
             case DOWN:
-                map.getPlayer().move(0, 1);
-                refresh();
-                scrollPane.setVvalue(scrollPane.getVvalue() + 0.05);
+                player.move(0, 1);
+                if(lastCell != player.getCell())
+                    scrollPane.setVvalue(scrollPane.getVvalue() + 0.045);
                 break;
             case LEFT:
-                map.getPlayer().move(-1, 0);
-                scrollPane.setHvalue(scrollPane.getHvalue() - 0.02);
-                refresh();
+                player.move(-1, 0);
+                if(lastCell != player.getCell())
+                    scrollPane.setHvalue(scrollPane.getHvalue() - 0.018);
                 break;
             case RIGHT:
-                map.getPlayer().move(1,0);
-                scrollPane.setHvalue(scrollPane.getHvalue() + 0.02);
-                refresh();
+                player.move(1,0);
+                if(lastCell != player.getCell())
+                    scrollPane.setHvalue(scrollPane.getHvalue() + 0.018);
                 break;
         }
+        refresh();
         displayUI();
         checkForItems();
         handleEnemies();
