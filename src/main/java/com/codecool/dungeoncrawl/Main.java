@@ -32,6 +32,7 @@ public class Main extends Application {
     Button pickUpItem = new Button("Pick up");
     String mapName = "/map1.txt";
     GameMap map = MapLoader.loadMap(mapName);
+    Player player = map.getPlayer();
     BorderPane borderPane = new BorderPane();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -243,6 +244,9 @@ public class Main extends Application {
                 break;
         }
         map = MapLoader.loadMap(mapName);
+        Cell cell = map.getPlayer().getCell();
+        player.setCell(cell);
+        map.setPlayer(player);
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

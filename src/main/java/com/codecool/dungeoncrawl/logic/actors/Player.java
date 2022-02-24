@@ -19,6 +19,10 @@ public class Player extends Actor {
         strength = 5;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
+
     void attack(Cell nextCell) {
         Actor enemy = nextCell.getActor();
         if(enemy != null) {
