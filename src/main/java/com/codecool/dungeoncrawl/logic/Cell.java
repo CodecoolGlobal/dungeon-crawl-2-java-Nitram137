@@ -89,6 +89,10 @@ public class Cell implements Drawable {
         return actor == null;
     }
 
+    public boolean isCellOpenedDoor() {
+        return type == CellType.OPENED_DOOR;
+    }
+
     public void setCellToOpenedDoor() {
         type = CellType.OPENED_DOOR;
     }
