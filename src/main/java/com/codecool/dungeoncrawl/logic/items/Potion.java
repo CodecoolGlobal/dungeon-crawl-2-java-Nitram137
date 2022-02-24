@@ -14,11 +14,15 @@ public class Potion extends Item{
 
     @Override
     public void useItem(Player player) {
-
+        player.drinkPotion(this);
     }
 
     @Override
     public String getTileName() {
         return type.getName();
+    }
+
+    public int getHealthRegen() {
+        return type.getHealthRegen();
     }
 }
