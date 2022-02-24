@@ -269,10 +269,12 @@ public class Main extends Application {
     public void gameOver() {
         Label gameOver = new Label("Game Over");
         ui.add(gameOver, 1, 10);
+        scrollPane.setContent(null);
     }
 
     public void winTheGame() {
         Label win = new Label("Congratulations!!!!!!\n You have found \nThe STICK OF TRUTH!\n Whoever has the stick\n controls the universe");
         ui.add(win, 1, 10);
+        scrollPane.setContent(null);
     }
 }
