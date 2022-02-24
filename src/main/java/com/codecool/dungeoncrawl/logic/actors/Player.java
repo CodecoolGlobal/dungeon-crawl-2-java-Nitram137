@@ -19,6 +19,10 @@ public class Player extends Actor {
         strength = 5;
     }
 
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
+
     void attack(Cell nextCell) {
         Actor enemy = nextCell.getActor();
         if(enemy != null) {
@@ -57,7 +61,7 @@ public class Player extends Actor {
         return this.getCell().getItem() != null;
     }
 
-    private void deleteItemFromInventory(Item item) {
+    public void deleteItemFromInventory(Item item) {
         List<Item> itemList = inventory.get(item.getTileName());
         itemList.remove(item);
         if (itemList.size() == 0) {
@@ -129,5 +133,14 @@ public class Player extends Actor {
 
     public boolean isPlayerAlive() {
         return health > 0;
+    }
+
+    public boolean isPlayerHasStick() {
+        for (String key : inventory.keySet()) {
+            if (key.equals("Stick of Truth")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

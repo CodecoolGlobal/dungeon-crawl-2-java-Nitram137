@@ -17,6 +17,7 @@ public class Key extends Item{
         Cell door = player.getDoorNextToPlayer();
         if (door != null) {
             door.setCellToOpenedDoor();
+            player.deleteItemFromInventory(this);
         }
     }
 

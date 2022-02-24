@@ -32,6 +32,7 @@ public class Main extends Application {
     Button pickUpItem = new Button("Pick up");
     String mapName = "/map1.txt";
     GameMap map = MapLoader.loadMap(mapName);
+    Player player = map.getPlayer();
     BorderPane borderPane = new BorderPane();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -83,6 +84,9 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         Player player = map.getPlayer();
         Cell lastCell =  player.getCell();
+        if (player.isPlayerHasStick()) {
+            return;
+        }
         switch (keyEvent.getCode()) {
             case UP:
                 player.move(0, -1);
@@ -174,6 +178,10 @@ public class Main extends Application {
             public void handle(ActionEvent actionEvent) {
                 Player player = map.getPlayer();
                 player.pickUpItem();
+                if (player.isPlayerHasStick()) {
+                    winTheGame();
+                    return;
+                }
                 map.getPlayer().getCell().setItem(null);
                 displayUI();
                 disablePickUpButton();
@@ -236,6 +244,9 @@ public class Main extends Application {
                 break;
         }
         map = MapLoader.loadMap(mapName);
+        Cell cell = map.getPlayer().getCell();
+        player.setCell(cell);
+        map.setPlayer(player);
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);
@@ -258,5 +269,10 @@ public class Main extends Application {
     public void gameOver() {
         Label gameOver = new Label("Game Over");
         ui.add(gameOver, 1, 10);
+    }
+
+    public void winTheGame() {
+        Label win = new Label("Congratulations!!!!!!\n You have found \nThe STICK OF TRUTH!\n Whoever has the stick\n controls the universe");
+        ui.add(win, 1, 10);
     }
 }
