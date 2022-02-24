@@ -83,6 +83,9 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         Player player = map.getPlayer();
         Cell lastCell =  player.getCell();
+        if (player.isPlayerHasStick()) {
+            return;
+        }
         switch (keyEvent.getCode()) {
             case UP:
                 player.move(0, -1);
@@ -174,6 +177,10 @@ public class Main extends Application {
             public void handle(ActionEvent actionEvent) {
                 Player player = map.getPlayer();
                 player.pickUpItem();
+                if (player.isPlayerHasStick()) {
+                    winTheGame();
+                    return;
+                }
                 map.getPlayer().getCell().setItem(null);
                 displayUI();
                 disablePickUpButton();
@@ -258,5 +265,10 @@ public class Main extends Application {
     public void gameOver() {
         Label gameOver = new Label("Game Over");
         ui.add(gameOver, 1, 10);
+    }
+
+    public void winTheGame() {
+        Label win = new Label("Congratulations!!!!!!\n You have found \nThe STICK OF TRUTH!\n Whoever has the stick\n controls the universe");
+        ui.add(win, 1, 10);
     }
 }

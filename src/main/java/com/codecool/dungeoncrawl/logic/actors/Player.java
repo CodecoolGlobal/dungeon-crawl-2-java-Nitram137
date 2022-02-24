@@ -130,4 +130,13 @@ public class Player extends Actor {
     public boolean isPlayerAlive() {
         return health > 0;
     }
+
+    public boolean isPlayerHasStick() {
+        for (String key : inventory.keySet()) {
+            if (key.equals("Stick of Truth")) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
