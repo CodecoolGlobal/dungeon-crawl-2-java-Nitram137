@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Potion;
 import com.codecool.dungeoncrawl.logic.items.Weapon;
 
 import java.util.ArrayList;
@@ -81,4 +82,20 @@ public class Player extends Actor {
             items.add(item);
             inventory.put(key, items);
         }
+
+    public void drinkPotion(Potion potion) {
+        int healthRegen = potion.getHealthRegen();
+        if (health < MAX_HEALTH) {
+            if (healthRegen + health > MAX_HEALTH) {
+                health = MAX_HEALTH;
+            } else {
+                health = health + healthRegen;
+            }
+            deleteItemFromInventory(potion);
+        }
+    }
+
+    public boolean isPlayerHealthFull() {
+        return health == MAX_HEALTH;
+    }
 }
