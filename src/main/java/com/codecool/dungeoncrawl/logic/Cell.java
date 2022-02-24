@@ -86,7 +86,7 @@ public class Cell implements Drawable {
     }
 
     public boolean isCellActor() {
-        return actor == null;
+        return actor != null;
     }
 
     public boolean isCellOpenedDoor() {
@@ -95,6 +95,10 @@ public class Cell implements Drawable {
 
     public boolean isCellStairs() {
         return type == CellType.STAIRS;
+    }
+
+    public boolean isCellFreeToMove () {
+        return (isCellOpenedDoor() || isCellFloor() || isCellStairs()) && !isCellActor();
     }
 
     public void setCellToOpenedDoor() {
