@@ -93,6 +93,10 @@ public class Cell implements Drawable {
         return type == CellType.OPENED_DOOR;
     }
 
+    public boolean isCellStairs() {
+        return type == CellType.STAIRS;
+    }
+
     public void setCellToOpenedDoor() {
         type = CellType.OPENED_DOOR;
     }
