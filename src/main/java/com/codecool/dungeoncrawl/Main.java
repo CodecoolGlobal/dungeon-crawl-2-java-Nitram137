@@ -16,6 +16,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,17 +25,17 @@ import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 
 
 public class Main extends Application {
+    ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
     Button pickUpItem = new Button("Pick up");
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+           map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
     Label weaponLabel = new Label();
@@ -57,14 +58,24 @@ public class Main extends Application {
 
         BorderPane borderPane = new BorderPane();
 
-        borderPane.setCenter(canvas);
+
+        scrollPane.pannableProperty().set(true);
+        scrollPane.setContent(canvas);
+
+        scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+
+        borderPane.setCenter(scrollPane);
         borderPane.setRight(ui);
+
+        borderPane.setPrefHeight(640);
+        borderPane.setPrefWidth(1100);
+
 
         Scene scene = new Scene(borderPane);
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
-
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
         displayInventory();
@@ -74,18 +85,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
+                scrollPane.setVvalue(scrollPane.getVvalue() - 0.05);
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().move(0, 1);
                 refresh();
+                scrollPane.setVvalue(scrollPane.getVvalue() + 0.05);
                 break;
             case LEFT:
                 map.getPlayer().move(-1, 0);
+                scrollPane.setHvalue(scrollPane.getHvalue() - 0.02);
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().move(1,0);
+                scrollPane.setHvalue(scrollPane.getHvalue() + 0.02);
                 refresh();
                 break;
         }
