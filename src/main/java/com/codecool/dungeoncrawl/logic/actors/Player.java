@@ -115,7 +115,7 @@ public class Player extends Actor {
         neighbours.add(cell.getNeighbor(0, -1));
         for (Cell cell1 : neighbours) {
             if (cell1 != null) {
-                if (cell1.isCellDoor()) {
+                if (cell1.isCellClosedDoor()) {
                     return cell1;
                 }
             }
