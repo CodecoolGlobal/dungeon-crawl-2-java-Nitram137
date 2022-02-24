@@ -40,6 +40,8 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label weaponLabel = new Label();
     Label damageLabel = new Label();
+    double Hscroll = 0.035;
+    double Vscroll = 0.060;
 
     public static void main(String[] args) {
         launch(args);
@@ -85,23 +87,27 @@ public class Main extends Application {
             case UP:
                 player.move(0, -1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() - 0.045);
+                    scrollPane.setVvalue(scrollPane.getVvalue() - Vscroll);
                 break;
             case DOWN:
                 player.move(0, 1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() + 0.045);
+                    scrollPane.setVvalue(scrollPane.getVvalue() + Vscroll);
                 break;
             case LEFT:
                 player.move(-1, 0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() - 0.018);
+                    scrollPane.setHvalue(scrollPane.getHvalue() - Hscroll);
                 break;
             case RIGHT:
                 player.move(1,0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() + 0.018);
+                    scrollPane.setHvalue(scrollPane.getHvalue() + Hscroll);
                 break;
+        }
+        if (!player.isPlayerAlive()) {
+            gameOver();
+            return;
         }
         if (player.isPlayerStandOnStairs()) { changeMap(); }
         refresh();
@@ -220,9 +226,13 @@ public class Main extends Application {
         switch (mapName) {
             case "/map1.txt":
                 mapName = "/map2.txt";
+                Hscroll = 0.018;
+                Vscroll = 0.045;
                 break;
             case "/map2.txt":
                 mapName = "/map3.txt";
+                Hscroll = 0.035;
+                Vscroll = 0.030;
                 break;
         }
         map = MapLoader.loadMap(mapName);
@@ -236,9 +246,17 @@ public class Main extends Application {
         scrollPane.pannableProperty().set(true);
         scrollPane.setContent(canvas);
 
+        scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+
         borderPane.setCenter(scrollPane);
 
         refresh();
         displayUI();
+    }
+
+    public void gameOver() {
+        Label gameOver = new Label("Game Over");
+        ui.add(gameOver, 1, 10);
     }
 }
