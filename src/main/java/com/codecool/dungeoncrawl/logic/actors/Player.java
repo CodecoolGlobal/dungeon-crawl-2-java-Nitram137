@@ -57,7 +57,7 @@ public class Player extends Actor {
         return this.getCell().getItem() != null;
     }
 
-    private void deleteItemFromInventory(Item item) {
+    public void deleteItemFromInventory(Item item) {
         List<Item> itemList = inventory.get(item.getTileName());
         itemList.remove(item);
         if (itemList.size() == 0) {
