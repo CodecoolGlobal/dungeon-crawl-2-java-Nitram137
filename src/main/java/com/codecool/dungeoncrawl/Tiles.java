@@ -40,6 +40,8 @@ public class Tiles {
         tileMap.put("Stick of Truth", new Tile(0, 25));
         tileMap.put("shadow", new Tile(24, 8));
         tileMap.put("nuclear cloud", new Tile(4, 2));
+        tileMap.put("closed_door", new Tile(3, 9));
+        tileMap.put("opened_door", new Tile(6, 9));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

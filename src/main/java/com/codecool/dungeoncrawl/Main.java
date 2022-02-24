@@ -26,8 +26,6 @@ import javafx.stage.Stage;
 import java.util.List;
 import java.util.Map;
 
-
-
 public class Main extends Application {
     ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
@@ -138,7 +136,7 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
 
         ui.add(new Label("Damage: "), 0, 1);
-        damageLabel.setText("" + map.getPlayer().getDamage());
+        damageLabel.setText("" + Math.abs(map.getPlayer().getDamage()));
         ui.add(damageLabel, 1, 1);
 
         ui.add(new Label("Weapon: "), 0, 2);
@@ -204,6 +202,7 @@ public class Main extends Application {
                     Item item = inventory.get(key).get(0);
                     item.useItem(map.getPlayer());
                     displayUI();
+                    refresh();
                 }
             });
             if (inventory.get(key).get(0) instanceof Potion) {

@@ -14,7 +14,10 @@ public class Key extends Item{
 
     @Override
     public void useItem(Player player) {
-
+        Cell door = player.getDoorNextToPlayer();
+        if (door != null) {
+            door.setCellToOpenedDoor();
+        }
     }
 
     @Override

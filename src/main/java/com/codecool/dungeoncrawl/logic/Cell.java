@@ -76,4 +76,12 @@ public class Cell implements Drawable {
     public int getY() {
         return y;
     }
+
+    public boolean isCellDoor() {
+        return type == CellType.CLOSED_DOOR;
+    }
+
+    public void setCellToOpenedDoor() {
+        type = CellType.OPENED_DOOR;
+    }
 }
