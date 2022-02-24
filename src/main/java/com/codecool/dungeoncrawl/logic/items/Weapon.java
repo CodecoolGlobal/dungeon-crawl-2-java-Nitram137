@@ -3,26 +3,27 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
-public class Potion extends Item{
+public class Weapon extends Item {
 
-    PotionType type;
+    WeaponType type;
 
-    public Potion(Cell cell, PotionType type) {
+    public Weapon(Cell cell, WeaponType type) {
         super(cell);
         this.type = type;
     }
 
+    public int getDamage() {
+        return type.getDamage();
+    }
+
     @Override
     public void useItem(Player player) {
-        player.drinkPotion(this);
+        player.changeWeapon(this);
     }
+
 
     @Override
     public String getTileName() {
         return type.getName();
-    }
-
-    public int getHealthRegen() {
-        return type.getHealthRegen();
     }
 }

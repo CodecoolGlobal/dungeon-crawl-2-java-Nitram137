@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Potion;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,19 +23,22 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
+
 
 
 public class Main extends Application {
     GridPane ui = new GridPane();
-    Button pickUpItem;
-    Label inventoryLabel = new Label();
+    Button pickUpItem = new Button("Pick up");
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label weaponLabel = new Label();
+    Label damageLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -42,14 +47,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ui.setPrefWidth(200);
+        ui.setPrefWidth(300);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
+        displayUI();
 
-        ui.add(new Label("Inventory: "), 0, 1);
-        ui.add(inventoryLabel, 1, 2);
+        addEventListenerToPickUpButton();
+        disablePickUpButton();
 
         BorderPane borderPane = new BorderPane();
 
@@ -85,6 +89,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+        displayUI();
         checkForItems();
         handleEnemies();
     }
@@ -107,50 +112,90 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
     }
 
+    private void displayUI() {
+        ui.getChildren().clear();
+
+        ui.add(new Label("Health: "), 0, 0);
+        ui.add(healthLabel, 1, 0);
+        healthLabel.setText("" + map.getPlayer().getHealth());
+
+        ui.add(new Label("Damage: "), 0, 1);
+        damageLabel.setText("" + map.getPlayer().getDamage());
+        ui.add(damageLabel, 1, 1);
+
+        ui.add(new Label("Weapon: "), 0, 2);
+        weaponLabel.setText("" + map.getPlayer().getWeaponName());
+        ui.add(weaponLabel, 1, 2);
+
+        ui.add(new Label("Inventory: "), 0, 4);
+
+        ui.add(pickUpItem, 0, 3);
+
+        displayInventory();
+    }
+
     private void handleEnemies() {
         List<Actor> enemies = map.getEnemies();
         for(Actor enemy : enemies) enemy.act();
     }
 
     private void checkForItems() {
-        deleteButtonIfExists();
+        disablePickUpButton();
         if (map.getPlayer().isPlayerStandingInItem()) {
-            createPickUpButton();
+            activatePickUpButton();
         }
     }
 
-    private void createPickUpButton() {
-        pickUpItem = new Button("Pick up");
-        pickUpItem.setFocusTraversable(false);
-        ui.add(pickUpItem, 0, 3);
+    private void addEventListenerToPickUpButton() {
         pickUpItem.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Player player = map.getPlayer();
                 player.pickUpItem();
                 map.getPlayer().getCell().setItem(null);
-                displayInventory();
-                deleteButtonIfExists();
+                displayUI();
+                disablePickUpButton();
             }
         });
     }
 
-    private void deleteButtonIfExists() {
-        if (pickUpItem != null) {
-            ui.getChildren().remove(pickUpItem);
+    private void activatePickUpButton() {
+        pickUpItem.setDisable(false);
+        pickUpItem.setFocusTraversable(false);
+    }
+
+    private void disablePickUpButton() {
+        if (!pickUpItem.isDisabled()) {
+            pickUpItem.setDisable(true);
         }
     }
 
     private void displayInventory() {
-        HashMap<String, Integer> inventory = map.getPlayer().getInventory();
-        StringBuilder sb = new StringBuilder();
-        if (inventory.size() == 0) {
-            sb.append("Empty!");
+        Map<String, List<Item>> inventory = map.getPlayer().getInventory();
+        int rowCounter = 5;
+        if (inventory.isEmpty()) {
+            ui.add(new Label("Empty"), 1, rowCounter);
+            return;
         }
-        for (String key : inventory.keySet()) {
-            sb.append(key + ": " + inventory.get(key));
-            sb.append("\n");
+        for (String key: inventory.keySet()) {
+            ui.add(new Label(key + ": " + inventory.get(key).size()), 1, rowCounter);
+            Button useButton = new Button("Use");
+            useButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    Item item = inventory.get(key).get(0);
+                    item.useItem(map.getPlayer());
+                    displayUI();
+                }
+            });
+            if (inventory.get(key).get(0) instanceof Potion) {
+                if (map.getPlayer().isPlayerHealthFull()) {
+                    useButton.setDisable(true);
+                }
+            }
+            useButton.setFocusTraversable(false);
+            ui.add(useButton, 3, rowCounter);
+            rowCounter++;
         }
-        inventoryLabel.setText(sb.toString());
     }
 }

@@ -28,11 +28,18 @@ public class Tiles {
         tileMap.put("floor", new Tile(2, 0));
         tileMap.put("player", new Tile(27, 0));
         tileMap.put("skeleton", new Tile(29, 6));
+        tileMap.put("Iron Key", new Tile(17, 23));
+        tileMap.put("Golden key", new Tile(16,23));
+        tileMap.put("Potion", new Tile(23, 23));
+        tileMap.put("Big Potion", new Tile(26, 23));
+        tileMap.put("Thunderfury", new Tile(4, 29));
+        tileMap.put("Frostmourne", new Tile(2, 30));
+        tileMap.put("The Grim Reaper", new Tile(3, 24));
+        tileMap.put("Mjolnir", new Tile(5, 29));
+        tileMap.put("Stormbreaker", new Tile(8, 29));
+        tileMap.put("Stick of Truth", new Tile(0, 25));
         tileMap.put("shadow", new Tile(24, 8));
         tileMap.put("nuclear cloud", new Tile(4, 2));
-        tileMap.put("key", new Tile(17, 23));
-        tileMap.put("sword", new Tile(0, 29));
-        tileMap.put("potion", new Tile(23, 23));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
