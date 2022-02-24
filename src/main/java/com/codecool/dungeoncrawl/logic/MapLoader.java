@@ -90,6 +90,12 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Potion(cell, PotionType.BIG_POTION);
                             break;
+                        case 'D':
+                            cell.setType(CellType.CLOSED_DOOR);
+                            break;
+                        case 'd':
+                            cell.setType(CellType.OPENED_DOOR);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
