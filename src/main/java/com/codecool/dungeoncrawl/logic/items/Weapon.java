@@ -12,9 +12,13 @@ public class Weapon extends Item {
         this.type = type;
     }
 
+    public int getDamage() {
+        return type.getDamage();
+    }
+
     @Override
     public void useItem(Player player) {
-
+        player.changeWeapon(this);
     }
 
 
