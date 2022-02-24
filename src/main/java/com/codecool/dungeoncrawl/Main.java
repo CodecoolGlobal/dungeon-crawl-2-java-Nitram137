@@ -168,6 +168,14 @@ public class Main extends Application {
         for (String key: inventory.keySet()) {
             ui.add(new Label(key + ": " + inventory.get(key).size()), 1, rowCounter);
             Button useButton = new Button("Use");
+            useButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    Item item = inventory.get(key).get(0);
+                    item.useItem(map.getPlayer());
+                    displayUI();
+                }
+            });
             useButton.setFocusTraversable(false);
             ui.add(useButton, 3, rowCounter);
             rowCounter++;
