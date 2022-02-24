@@ -104,4 +104,22 @@ public class Player extends Actor {
     public boolean isPlayerHealthFull() {
         return health == MAX_HEALTH;
     }
+
+    public Cell getDoorNextToPlayer() {
+        int x = cell.getX();
+        int y = cell.getY();
+        List<Cell> neighbours = new ArrayList<>();
+        neighbours.add(cell.getNeighbor(1, 0));
+        neighbours.add(cell.getNeighbor(-1, 0));
+        neighbours.add(cell.getNeighbor(0, 1));
+        neighbours.add(cell.getNeighbor(0, -1));
+        for (Cell cell1 : neighbours) {
+            if (cell1 != null) {
+                if (cell1.isCellDoor()) {
+                    return cell1;
+                }
+            }
+        }
+        return null;
+    }
 }
