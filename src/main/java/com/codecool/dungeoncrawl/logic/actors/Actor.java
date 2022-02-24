@@ -26,7 +26,7 @@ public abstract class Actor implements Drawable {
         Cell nextCell = cell.getNeighbor(dx, dy);
         if(nextCell == null) return;
         if(this instanceof Player) ((Player) this).attack(nextCell);
-        if((nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.OPENED_DOOR) && nextCell.getActor() == null) {
+        if (nextCell.isCellFreeToMove()) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;

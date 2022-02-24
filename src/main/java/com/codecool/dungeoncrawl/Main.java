@@ -30,7 +30,9 @@ public class Main extends Application {
     ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
     Button pickUpItem = new Button("Pick up");
-    GameMap map = MapLoader.loadMap();
+    String mapName = "/map1.txt";
+    GameMap map = MapLoader.loadMap(mapName);
+    BorderPane borderPane = new BorderPane();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
            map.getHeight() * Tiles.TILE_WIDTH);
@@ -53,9 +55,6 @@ public class Main extends Application {
 
         addEventListenerToPickUpButton();
         disablePickUpButton();
-
-        BorderPane borderPane = new BorderPane();
-
 
         scrollPane.pannableProperty().set(true);
         scrollPane.setContent(canvas);
@@ -104,6 +103,7 @@ public class Main extends Application {
                     scrollPane.setHvalue(scrollPane.getHvalue() + 0.018);
                 break;
         }
+        if (player.isPlayerStandOnStairs()) { changeMap(); }
         refresh();
         displayUI();
         checkForItems();
@@ -214,5 +214,31 @@ public class Main extends Application {
             ui.add(useButton, 3, rowCounter);
             rowCounter++;
         }
+    }
+
+    private void changeMap() {
+        switch (mapName) {
+            case "/map1.txt":
+                mapName = "/map2.txt";
+                break;
+            case "/map2.txt":
+                mapName = "/map3.txt";
+                break;
+        }
+        map = MapLoader.loadMap(mapName);
+        canvas = new Canvas(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH);
+        context = canvas.getGraphicsContext2D();
+
+        scrollPane = new ScrollPane();
+
+        scrollPane.pannableProperty().set(true);
+        scrollPane.setContent(canvas);
+
+        borderPane.setCenter(scrollPane);
+
+        refresh();
+        displayUI();
     }
 }
