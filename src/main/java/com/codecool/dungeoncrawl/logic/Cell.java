@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.items.Item;
 
 public class Cell implements Drawable {
     private CellType type;
+    private Item item;
     private Actor actor;
     private GameMap gameMap;
     private int x, y;
@@ -15,12 +17,34 @@ public class Cell implements Drawable {
         this.type = type;
     }
 
+    public boolean isPlayerNear(int tiles) {
+        return Math.abs(x - gameMap.getPlayer().getX()) <= tiles && Math.abs(y - gameMap.getPlayer().getY()) <= tiles;
+    }
+
+    public void hurtPlayer(int damage) {
+        gameMap.getPlayer().modifyHealth(-damage);
+    }
+
+    public int getPlayerX() { return gameMap.getPlayer().getX(); }
+
+    public int getPlayerY() { return gameMap.getPlayer().getY(); }
+
+    public int getPlayerStrength() { return Math.abs(gameMap.getPlayer().getDamage()); }
+
     public CellType getType() {
         return type;
     }
 
     public void setType(CellType type) {
         this.type = type;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Item getItem() {
+        return item;
     }
 
     public void setActor(Actor actor) {
@@ -32,7 +56,12 @@ public class Cell implements Drawable {
     }
 
     public Cell getNeighbor(int dx, int dy) {
-        return gameMap.getCell(x + dx, y + dy);
+        try {
+            return gameMap.getCell(x + dx, y + dy);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @Override
@@ -46,5 +75,33 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isCellClosedDoor() {
+        return type == CellType.CLOSED_DOOR;
+    }
+
+    public boolean isCellFloor() {
+        return type == CellType.FLOOR;
+    }
+
+    public boolean isCellActor() {
+        return actor != null;
+    }
+
+    public boolean isCellOpenedDoor() {
+        return type == CellType.OPENED_DOOR;
+    }
+
+    public boolean isCellStairs() {
+        return type == CellType.STAIRS;
+    }
+
+    public boolean isCellFreeToMove () {
+        return (isCellOpenedDoor() || isCellFloor() || isCellStairs()) && !isCellActor();
+    }
+
+    public void setCellToOpenedDoor() {
+        type = CellType.OPENED_DOOR;
     }
 }
