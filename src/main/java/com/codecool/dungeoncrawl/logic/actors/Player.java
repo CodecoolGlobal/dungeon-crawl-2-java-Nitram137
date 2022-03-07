@@ -143,4 +143,8 @@ public class Player extends Actor {
         }
         return false;
     }
+
+    public String getName() {
+        return "Champion of the Light";
+    }
 }
