@@ -18,6 +18,12 @@ public class GameState extends BaseModel {
         this.inventory = inventory;
     }
 
+    public GameState(String currentMap, PlayerModel player, InventoryModel inventory) {
+        this.currentMap = currentMap;
+        this.player = player;
+        this.inventory = inventory;
+    }
+
     public Date getSavedAt() {
         return savedAt;
     }
