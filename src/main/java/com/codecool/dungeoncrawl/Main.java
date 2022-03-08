@@ -127,7 +127,7 @@ public class Main extends Application {
                     scrollPane.setHvalue(scrollPane.getHvalue() + Hscroll);
                 break;
             case S:
-                dbManager.savePlayer(player);
+                dbManager.saveGame(player);
                 break;
         }
         if (!player.isPlayerAlive()) {

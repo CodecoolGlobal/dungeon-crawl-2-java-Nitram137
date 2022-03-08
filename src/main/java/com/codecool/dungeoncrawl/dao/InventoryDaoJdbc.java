@@ -77,11 +77,12 @@ public class InventoryDaoJdbc implements InventoryDao{
     @Override
     public List<InventoryModel> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT iron_key, potion, big_potion, thunderfury, mjolnir, the_grim_reaper, stormbreaker, frostmourne, stick_of_truth FROM inventory";
+            String sql = "SELECT id, iron_key, potion, big_potion, thunderfury, mjolnir, the_grim_reaper, stormbreaker, frostmourne, stick_of_truth FROM inventory";
             ResultSet resultSet = conn.createStatement().executeQuery(sql);
             List<InventoryModel> result = new ArrayList<>();
             while(resultSet.next()) {
-                InventoryModel inventory = new InventoryModel(resultSet.getInt(1), resultSet.getInt(2), resultSet.getInt(3), resultSet.getBoolean(4), resultSet.getBoolean(5), resultSet.getBoolean(6), resultSet.getBoolean(7), resultSet.getBoolean(8), resultSet.getBoolean(9));
+                InventoryModel inventory = new InventoryModel(resultSet.getInt(2), resultSet.getInt(3), resultSet.getInt(4), resultSet.getBoolean(5), resultSet.getBoolean(6), resultSet.getBoolean(7), resultSet.getBoolean(8), resultSet.getBoolean(9), resultSet.getBoolean(10));
+                inventory.setId(resultSet.getInt(1));
                 result.add(inventory);
             }
             return result;

@@ -15,8 +15,10 @@ public class GameStateDaoJdbc implements GameStateDao {
     private PlayerDao playerDao;
     private InventoryDao inventoryDao;
 
-    public GameStateDaoJdbc(DataSource dataSource) {
+    public GameStateDaoJdbc(DataSource dataSource, PlayerDao playerDao, InventoryDao inventoryDao) {
         this.dataSource = dataSource;
+        this.playerDao = playerDao;
+        this.inventoryDao = inventoryDao;
     }
 
     @Override
@@ -73,15 +75,16 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public List<GameState> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT current_map, saved_at, player_id, inventory_id FROM game_state";
+            String sql = "SELECT id, current_map, saved_at, player_id, inventory_id FROM game_state";
             ResultSet resultSet = conn.createStatement().executeQuery(sql);
             List<GameState> result = new ArrayList<>();
             while(resultSet.next()) {
-                int playerId = resultSet.getInt(3);
-                int inventoryId = resultSet.getInt(4);
+                int playerId = resultSet.getInt(4);
+                int inventoryId = resultSet.getInt(5);
                 PlayerModel player = playerDao.get(playerId);
                 InventoryModel inventory = inventoryDao.get(inventoryId);
-                GameState state = new GameState(resultSet.getString(1), resultSet.getDate(2), player, inventory);
+                GameState state = new GameState(resultSet.getString(2), resultSet.getDate(3), player, inventory);
+                state.setId(resultSet.getInt(1));
                 result.add(state);
             }
             return result;
