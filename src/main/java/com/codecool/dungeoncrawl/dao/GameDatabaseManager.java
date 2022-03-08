@@ -1,14 +1,19 @@
 package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.model.InventoryModel;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
+    private InventoryDao inventoryDao;
 
     public void setup() throws SQLException {
         DataSource dataSource = connect();
@@ -18,6 +23,11 @@ public class GameDatabaseManager {
     public void savePlayer(Player player) {
         PlayerModel model = new PlayerModel(player);
         playerDao.add(model);
+    }
+
+    public void saveInventory(Map<String, List<Item>> inventory) {
+        InventoryModel model = new InventoryModel(inventory);
+        inventoryDao.add(model);
     }
 
     private DataSource connect() throws SQLException {
