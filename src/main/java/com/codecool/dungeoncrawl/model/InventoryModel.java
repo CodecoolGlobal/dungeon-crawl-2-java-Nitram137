@@ -1,5 +1,10 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.items.Item;
+
+import java.util.List;
+import java.util.Map;
+
 public class InventoryModel extends BaseModel {
     private int ironKey;
     private int potion;
@@ -10,6 +15,31 @@ public class InventoryModel extends BaseModel {
     private boolean stormbreaker;
     private boolean frostmourne;
     private boolean stickOfTruth;
+
+    public InventoryModel(Map<String, List<Item>> inventory) {
+        for(String key : inventory.keySet()) {
+            switch (key) {
+                case "Iron Key": ironKey = inventory.get(key).size();
+                    break;
+                case "Potion": potion = inventory.get(key).size();
+                    break;
+                case "Big Potion": bigPotion = inventory.get(key).size();
+                    break;
+                case "Thunderfury": thunderfury = inventory.get(key).size() == 1;
+                    break;
+                case "Mjolnir": mjolnir = inventory.get(key).size() == 1;
+                    break;
+                case "The Grim Reaper": theGrimReaper = inventory.get(key).size() == 1;
+                    break;
+                case "Stormbreaker": stormbreaker = inventory.get(key).size() == 1;
+                    break;
+                case "Frostmourne": frostmourne = inventory.get(key).size() == 1;
+                    break;
+                case "Stick of Truth": stickOfTruth = inventory.get(key).size() == 1;
+                    break;
+            }
+        }
+    }
 
     public int getIronKey() {
         return ironKey;
