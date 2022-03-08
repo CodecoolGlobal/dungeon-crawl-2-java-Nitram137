@@ -41,6 +41,18 @@ public class InventoryModel extends BaseModel {
         }
     }
 
+    public InventoryModel(int ironKey, int potion, int bigPotion, boolean thunderfury, boolean mjolnir, boolean theGrimReaper, boolean stormbreaker, boolean frostmourne, boolean stickOfTruth) {
+        this.ironKey = ironKey;
+        this.potion = potion;
+        this.bigPotion = bigPotion;
+        this.thunderfury = thunderfury;
+        this.mjolnir = mjolnir;
+        this.theGrimReaper = theGrimReaper;
+        this.stormbreaker = stormbreaker;
+        this.frostmourne = frostmourne;
+        this.stickOfTruth = stickOfTruth;
+    }
+
     public int getIronKey() {
         return ironKey;
     }
