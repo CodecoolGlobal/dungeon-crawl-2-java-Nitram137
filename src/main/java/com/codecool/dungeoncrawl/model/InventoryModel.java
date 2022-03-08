@@ -35,7 +35,7 @@ public class InventoryModel extends BaseModel {
         this.bigPotion = bigPotion;
     }
 
-    public boolean hassThunderfury() {
+    public boolean hasThunderfury() {
         return thunderfury;
     }
 
@@ -59,7 +59,7 @@ public class InventoryModel extends BaseModel {
         this.theGrimReaper = theGrimReaper;
     }
 
-    public boolean hassStormbreaker() {
+    public boolean hasStormbreaker() {
         return stormbreaker;
     }
 
