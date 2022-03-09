@@ -150,7 +150,17 @@ public class InventoryModel extends BaseModel {
         if (stormbreaker) {
             inventory.put("Stormbreaker", createStormbreaker());
         }
+        if (frostmourne) {
+            inventory.put("Frostmourne", createFrostmourne());
+        }
         return inventory;
+    }
+
+    private List<Item> createFrostmourne() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon frostmourne = new Weapon(WeaponType.FROSTMOURNE);
+        weapon.add(frostmourne);
+        return weapon;
     }
 
     private List<Item> createStormbreaker() {
