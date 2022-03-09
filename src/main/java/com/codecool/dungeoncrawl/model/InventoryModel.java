@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Key;
-import com.codecool.dungeoncrawl.logic.items.KeyType;
+import com.codecool.dungeoncrawl.logic.items.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,6 +132,9 @@ public class InventoryModel extends BaseModel {
         if (ironKey != 0) {
             inventory.put("Iron Key", createKeys(ironKey));
         }
+        if (potion != 0) {
+            inventory.put("Potion", createPotions(potion));
+        }
         return inventory;
     }
 
@@ -144,5 +145,14 @@ public class InventoryModel extends BaseModel {
             keys.add(key);
         }
         return keys;
+    }
+
+    private List<Item> createPotions(int numberOfPotions) {
+        List<Item> potions = new ArrayList<>();
+        for (int i = 0; i < numberOfPotions; i++) {
+            Potion potion = new Potion(PotionType.POTION);
+            potions.add(potion);
+        }
+        return potions;
     }
 }
