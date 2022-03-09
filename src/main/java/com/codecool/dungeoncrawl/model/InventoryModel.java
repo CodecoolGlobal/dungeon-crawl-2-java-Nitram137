@@ -135,6 +135,9 @@ public class InventoryModel extends BaseModel {
         if (potion != 0) {
             inventory.put("Potion", createPotions(potion));
         }
+        if (bigPotion != 0) {
+            inventory.put("Big Potion", createBigPotions(bigPotion));
+        }
         return inventory;
     }
 
@@ -154,5 +157,14 @@ public class InventoryModel extends BaseModel {
             potions.add(potion);
         }
         return potions;
+    }
+
+    private List<Item> createBigPotions(int numberOfBigPotions) {
+        List<Item> bigPotions = new ArrayList<>();
+        for (int i = 0; i < numberOfBigPotions; i++) {
+            Potion bigPotion = new Potion(PotionType.BIG_POTION);
+            bigPotions.add(bigPotion);
+        }
+        return bigPotions;
     }
 }
