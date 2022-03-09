@@ -382,7 +382,7 @@ public class Main extends Application {
                 String playerName = playerNameInput.getText();
                 player.setName(playerName);
                 if (dbManager.isPlayerExists(playerName)) {
-
+                    createAlertWindow();
                 } else {
                     dbManager.saveGame(player, map);
                     saveLoadPopUp.close();
@@ -393,6 +393,48 @@ public class Main extends Application {
         showModal(modalUi, saveGame, "Save Game");
     }
 
+    private void createAlertWindow() {
+        Stage alertWindow = new Stage();
+        BorderPane modal = new BorderPane();
 
+        GridPane alertUi = new GridPane();
+
+        Label text = new Label("Would you like to overwrite the already existing state?");
+        alertUi.add(text,0, 0);
+        alertUi.setAlignment(Pos.CENTER);
+        GridPane.setHalignment(text, HPos.CENTER);
+
+        GridPane buttons = new GridPane();
+        buttons.setPadding(new Insets(10, 10, 10, 140));
+        buttons.setVgap(5);
+        buttons.setHgap(5);
+        buttons.setPrefWidth(300);
+        Button yes = new Button("Yes");
+        yes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                dbManager.updateSavedGame(player);
+                saveLoadPopUp.close();
+                alertWindow.close();
+            }
+        });
+        Button no = new Button("No");
+        no.setOnAction(e -> alertWindow.close());
+        yes.setFocusTraversable(false);
+        no.setFocusTraversable(false);
+        buttons.add(yes, 0, 0);
+        buttons.add(no, 1, 0);
+
+        modal.setCenter(alertUi);
+        modal.setBottom(buttons);
+
+        Scene modalScene = new Scene(modal);
+        alertWindow.setScene(modalScene);
+
+        alertWindow.setTitle("Overwrite Save");
+        alertWindow.initOwner(primaryStage);
+        alertWindow.initModality(Modality.APPLICATION_MODAL);
+        alertWindow.showAndWait();
+    }
 
 }
