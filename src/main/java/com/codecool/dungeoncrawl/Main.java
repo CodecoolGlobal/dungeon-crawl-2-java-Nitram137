@@ -462,6 +462,7 @@ public class Main extends Application {
                     String playerName = list.getFocusModel().getFocusedItem();
                     GameState gameState = getGameStateByPlayerName(gameStates, playerName);
                     saveLoadPopUp.close();
+                    loadGame(gameState);
             }
         });
 
@@ -486,5 +487,28 @@ public class Main extends Application {
         return null;
     }
 
+    private void loadGame(GameState gameState) {
+        MapLoader.writeMap(gameState.getCurrentMap());
+        map = MapLoader.loadMap("/current_map.txt");
+        Cell cell = map.getPlayer().getCell();
+        player.setCell(cell);
+        map.setPlayer(player);
+        canvas = new Canvas(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH);
+        context = canvas.getGraphicsContext2D();
 
+        scrollPane = new ScrollPane();
+
+        scrollPane.pannableProperty().set(true);
+        scrollPane.setContent(canvas);
+
+        scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
+
+        borderPane.setCenter(scrollPane);
+
+        refresh();
+        displayUI();
+    }
 }
