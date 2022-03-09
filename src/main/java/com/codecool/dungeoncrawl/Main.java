@@ -73,6 +73,7 @@ public class Main extends Application {
 
         addEventListenerToPickUpButton();
         disablePickUpButton();
+        loadGame.setOnAction(e -> createModalForLoad());
         loadGame.setFocusTraversable(false);
 
         scrollPane.pannableProperty().set(true);
@@ -436,5 +437,54 @@ public class Main extends Application {
         alertWindow.initModality(Modality.APPLICATION_MODAL);
         alertWindow.showAndWait();
     }
+
+    private void createModalForLoad() {
+        GridPane modalUi = new GridPane();
+
+        ListView<String> list = new ListView<>();
+        List<GameState> gameStates = dbManager.getAllGameState();
+
+        ObservableList<String> items = FXCollections.observableArrayList (getListWithPlayerNames(gameStates));
+
+        list.setItems(items);
+        list.setFocusTraversable(false);
+        modalUi.add(list, 0, 0);
+        modalUi.setAlignment(Pos. CENTER);
+        GridPane.setHalignment(list, HPos. CENTER);
+
+        list.setPrefWidth(200);
+        list.setPrefHeight(80);
+
+        Button loadGame = new Button("Load Game");
+        loadGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                    String playerName = list.getFocusModel().getFocusedItem();
+                    GameState gameState = getGameStateByPlayerName(gameStates, playerName);
+                    saveLoadPopUp.close();
+            }
+        });
+
+        showModal(modalUi, loadGame, "Load Game");
+    }
+
+    private List<String> getListWithPlayerNames(List<GameState> gameStates) {
+        List<String> playerNames = new ArrayList<>();
+        for (GameState gameState : gameStates) {
+            String playerName = gameState.getPlayer().getPlayerName();
+            playerNames.add(playerName);
+        }
+        return playerNames;
+    }
+
+    private GameState getGameStateByPlayerName(List<GameState> gameStates,String playerName) {
+        for (GameState gameState : gameStates) {
+            if (gameState.getPlayer().getPlayerName().equals(playerName)) {
+                return gameState;
+            }
+        }
+        return null;
+    }
+
 
 }
