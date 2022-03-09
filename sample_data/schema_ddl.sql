@@ -6,7 +6,8 @@ CREATE TABLE public.game_state (
     player_id integer NOT NULL,
     inventory_id integer NOT NULL,
     hscroll double precision NOT NULL,
-    vscroll double precision NOT NULL
+    vscroll double precision NOT NULL,
+    map_name text NOT NULL
 );
 
 DROP TABLE IF EXISTS public.player;

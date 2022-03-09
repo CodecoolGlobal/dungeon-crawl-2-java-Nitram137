@@ -12,22 +12,29 @@ public class GameState extends BaseModel {
     private InventoryModel inventory;
     private double Hscroll;
     private double Vscroll;
+    private String mapName;
 
-    public GameState(String currentMap, Date savedAt, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll) {
+    public GameState(String currentMap, Date savedAt, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll, String mapName) {
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.player = player;
         this.inventory = inventory;
         this.Hscroll = Hscroll;
         this.Vscroll = Vscroll;
+        this.mapName = mapName;
     }
 
-    public GameState(String currentMap, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll) {
+    public String getMapName() {
+        return mapName;
+    }
+
+    public GameState(String currentMap, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll, String mapName) {
         this.currentMap = currentMap;
         this.player = player;
         this.inventory = inventory;
         this.Hscroll = Hscroll;
         this.Vscroll = Vscroll;
+        this.mapName = mapName;
     }
 
     public Date getSavedAt() {

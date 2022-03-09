@@ -379,7 +379,7 @@ public class Main extends Application {
                 if (dbManager.isPlayerExists(playerName)) {
                     createAlertWindow();
                 } else {
-                    dbManager.saveGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue());
+                    dbManager.saveGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue(), mapName);
                     saveLoadPopUp.close();
                 }
             }
@@ -488,6 +488,7 @@ public class Main extends Application {
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
         map.setPlayer(player);
+        mapName = gameState.getMapName();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

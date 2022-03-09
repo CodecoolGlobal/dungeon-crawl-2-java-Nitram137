@@ -24,13 +24,14 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void add(GameState state) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO game_state (current_map, player_id, inventory_id, hscroll, vscroll) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO game_state (current_map, player_id, inventory_id, hscroll, vscroll, map_name) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, state.getCurrentMap());
             statement.setInt(2, state.getPlayer().getId());
             statement.setInt(3, state.getInventory().getId());
             statement.setDouble(4, state.getHscroll());
             statement.setDouble(5, state.getVscroll());
+            statement.setString(6, state.getMapName());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
@@ -57,7 +58,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public GameState get(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT current_map, saved_at, player_id, inventory_id, hscroll, vscroll FROM game_state WHERE id = ?";
+            String sql = "SELECT current_map, saved_at, player_id, inventory_id, hscroll, vscroll, map_name FROM game_state WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -66,9 +67,10 @@ public class GameStateDaoJdbc implements GameStateDao {
             int inventoryId = resultSet.getInt(4);
             double Hscroll = resultSet.getDouble(5);
             double Vscroll = resultSet.getDouble(6);
+            String mapName = resultSet.getString(7);
             PlayerModel player = playerDao.get(playerId);
             InventoryModel inventory = inventoryDao.get(inventoryId);
-            GameState state = new GameState(resultSet.getString(1), resultSet.getDate(2), player, inventory, Hscroll, Vscroll);
+            GameState state = new GameState(resultSet.getString(1), resultSet.getDate(2), player, inventory, Hscroll, Vscroll, mapName);
             state.setId(id);
             return state;
         } catch (SQLException e) {
@@ -79,7 +81,7 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public List<GameState> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, current_map, saved_at, player_id, inventory_id, hscroll, vscroll FROM game_state";
+            String sql = "SELECT id, current_map, saved_at, player_id, inventory_id, hscroll, vscroll, map_name FROM game_state";
             ResultSet resultSet = conn.createStatement().executeQuery(sql);
             List<GameState> result = new ArrayList<>();
             while(resultSet.next()) {
@@ -87,9 +89,10 @@ public class GameStateDaoJdbc implements GameStateDao {
                 int inventoryId = resultSet.getInt(5);
                 double Hscroll = resultSet.getDouble(6);
                 double Vscroll = resultSet.getDouble(7);
+                String mapName = resultSet.getString(8);
                 PlayerModel player = playerDao.get(playerId);
                 InventoryModel inventory = inventoryDao.get(inventoryId);
-                GameState state = new GameState(resultSet.getString(2), resultSet.getDate(3), player, inventory, Hscroll, Vscroll);
+                GameState state = new GameState(resultSet.getString(2), resultSet.getDate(3), player, inventory, Hscroll, Vscroll, mapName);
                 state.setId(resultSet.getInt(1));
                 result.add(state);
             }
