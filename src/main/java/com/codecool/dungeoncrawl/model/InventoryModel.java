@@ -153,7 +153,17 @@ public class InventoryModel extends BaseModel {
         if (frostmourne) {
             inventory.put("Frostmourne", createFrostmourne());
         }
+        if (stickOfTruth) {
+            inventory.put("Stick of Truth", createTheStickOfTruth());
+        }
         return inventory;
+    }
+
+    private List<Item> createTheStickOfTruth() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon stickOfTruth = new Weapon(WeaponType.STICK);
+        weapon.add(stickOfTruth);
+        return weapon;
     }
 
     private List<Item> createFrostmourne() {
