@@ -12,6 +12,11 @@ public class Potion extends Item{
         this.type = type;
     }
 
+    public Potion(PotionType type) {
+        super();
+        this.type = type;
+    }
+
     @Override
     public void useItem(Player player) {
         player.drinkPotion(this);

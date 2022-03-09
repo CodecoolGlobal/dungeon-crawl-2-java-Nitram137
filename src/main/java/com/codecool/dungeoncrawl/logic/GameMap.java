@@ -116,4 +116,11 @@ public class GameMap {
         mapAsString.append("\n");
         return mapAsString.toString();
     }
+
+    public double getHorizontalScroll() {
+        return 1.44 / width;
+    }
+    public double getVerticalScroll() {
+        return 1.98 / height;
+    }
 }

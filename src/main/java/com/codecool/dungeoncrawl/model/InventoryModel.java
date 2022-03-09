@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.model;
 
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,5 +125,106 @@ public class InventoryModel extends BaseModel {
 
     public void setStickOfTruth(boolean stickOfTruth) {
         this.stickOfTruth = stickOfTruth;
+    }
+
+    public Map<String, List<Item>> convertToInventory() {
+        Map<String, List<Item>> inventory = new HashMap<>();
+        if (ironKey != 0) {
+            inventory.put("Iron Key", createKeys(ironKey));
+        }
+        if (potion != 0) {
+            inventory.put("Potion", createPotions(potion));
+        }
+        if (bigPotion != 0) {
+            inventory.put("Big Potion", createBigPotions(bigPotion));
+        }
+        if (thunderfury) {
+            inventory.put("Thunderfury", createThunderfury());
+        }
+        if (mjolnir) {
+            inventory.put("Mjolnir", createMjolnir());
+        }
+        if (theGrimReaper) {
+            inventory.put("The Grim Reaper", createTheGrimReaper());
+        }
+        if (stormbreaker) {
+            inventory.put("Stormbreaker", createStormbreaker());
+        }
+        if (frostmourne) {
+            inventory.put("Frostmourne", createFrostmourne());
+        }
+        if (stickOfTruth) {
+            inventory.put("Stick of Truth", createTheStickOfTruth());
+        }
+        return inventory;
+    }
+
+    private List<Item> createTheStickOfTruth() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon stickOfTruth = new Weapon(WeaponType.STICK);
+        weapon.add(stickOfTruth);
+        return weapon;
+    }
+
+    private List<Item> createFrostmourne() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon frostmourne = new Weapon(WeaponType.FROSTMOURNE);
+        weapon.add(frostmourne);
+        return weapon;
+    }
+
+    private List<Item> createStormbreaker() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon stormbreaker = new Weapon(WeaponType.STORMBREAKER);
+        weapon.add(stormbreaker);
+        return weapon;
+    }
+
+    private List<Item> createTheGrimReaper() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon theGrimReaper = new Weapon(WeaponType.SCYTHE);
+        weapon.add(theGrimReaper);
+        return weapon;
+    }
+
+    private List<Item> createMjolnir() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon mjolnir = new Weapon(WeaponType.MJOLNIR);
+        weapon.add(mjolnir);
+        return weapon;
+    }
+
+    private List<Item> createThunderfury() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon thunderfury = new Weapon(WeaponType.THUNDERFURY);
+        weapon.add(thunderfury);
+        return weapon;
+    }
+
+    private List<Item> createKeys(int numberOfKeys) {
+        List<Item> keys = new ArrayList<>();
+        for(int i = 0; i < numberOfKeys; i++) {
+            Key key = new Key(KeyType.IRON_KEY);
+            keys.add(key);
+        }
+        return keys;
+    }
+
+    private List<Item> createPotions(int numberOfPotions) {
+        List<Item> potions = new ArrayList<>();
+        for (int i = 0; i < numberOfPotions; i++) {
+            Potion potion = new Potion(PotionType.POTION);
+            potions.add(potion);
+        }
+        return potions;
+    }
+
+    private List<Item> createBigPotions(int numberOfBigPotions) {
+        List<Item> bigPotions = new ArrayList<>();
+        for (int i = 0; i < numberOfBigPotions; i++) {
+            Potion bigPotion = new Potion(PotionType.BIG_POTION);
+            bigPotions.add(bigPotion);
+        }
+        return bigPotions;
     }
 }

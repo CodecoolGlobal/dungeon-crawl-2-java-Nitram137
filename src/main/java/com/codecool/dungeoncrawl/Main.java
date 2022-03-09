@@ -52,8 +52,6 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label weaponLabel = new Label();
     Label damageLabel = new Label();
-    double Hscroll = 1.44 / map.getWidth();
-    double Vscroll = 1.98 / map.getHeight();
     GameDatabaseManager dbManager;
     Stage primaryStage;
     Stage saveLoadPopUp = new Stage();
@@ -124,22 +122,22 @@ public class Main extends Application {
             case UP:
                 player.move(0, -1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() - Vscroll);
+                    scrollPane.setVvalue(scrollPane.getVvalue() - map.getVerticalScroll());
                 break;
             case DOWN:
                 player.move(0, 1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() + Vscroll);
+                    scrollPane.setVvalue(scrollPane.getVvalue() + map.getVerticalScroll());
                 break;
             case LEFT:
                 player.move(-1, 0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() - Hscroll);
+                    scrollPane.setHvalue(scrollPane.getHvalue() - map.getHorizontalScroll());
                 break;
             case RIGHT:
                 player.move(1,0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() + Hscroll);
+                    scrollPane.setHvalue(scrollPane.getHvalue() + map.getHorizontalScroll());
                 break;
         }
         if (!player.isPlayerAlive()) {
@@ -268,13 +266,9 @@ public class Main extends Application {
         switch (mapName) {
             case "src/main/resources/map1.txt":
                 mapName = "src/main/resources/map2.txt";
-                Hscroll = 1.44 / map.getWidth();
-                Vscroll = 1.98 / map.getHeight();
                 break;
             case "src/main/resources/map2.txt":
                 mapName = "src/main/resources/map3.txt";
-                Hscroll = 1.44 / map.getWidth();
-                Vscroll = 1.98 / map.getHeight();
                 break;
         }
         map = MapLoader.loadCurrentMap(mapName);
@@ -489,6 +483,7 @@ public class Main extends Application {
 
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
+        player.setInventory(gameState.getInventory().convertToInventory());
         map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
