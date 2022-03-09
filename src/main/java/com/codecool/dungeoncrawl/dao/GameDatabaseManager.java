@@ -23,10 +23,10 @@ public class GameDatabaseManager {
         gameStateDao = new GameStateDaoJdbc(dataSource, playerDao, inventoryDao);
     }
 
-    public void saveGame(Player player, GameMap map) {
+    public void saveGame(Player player, GameMap map, double Hscroll, double Vscroll) {
         PlayerModel playerModel = new PlayerModel(player);
         InventoryModel inventoryModel = new InventoryModel(player.getInventory());
-        GameState gameState = new GameState(map.toString(), playerModel, inventoryModel);
+        GameState gameState = new GameState(map.toString(), playerModel, inventoryModel, Hscroll, Vscroll);
         playerDao.add(playerModel);
         inventoryDao.add(inventoryModel);
         gameStateDao.add(gameState);

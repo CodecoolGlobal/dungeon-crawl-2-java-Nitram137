@@ -379,7 +379,7 @@ public class Main extends Application {
                 if (dbManager.isPlayerExists(playerName)) {
                     createAlertWindow();
                 } else {
-                    dbManager.saveGame(player, map);
+                    dbManager.saveGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue());
                     saveLoadPopUp.close();
                 }
             }
@@ -497,6 +497,9 @@ public class Main extends Application {
 
         scrollPane.pannableProperty().set(true);
         scrollPane.setContent(canvas);
+
+        scrollPane.setHvalue(gameState.getHscroll());
+        scrollPane.setVvalue(gameState.getVscroll());
 
         scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);

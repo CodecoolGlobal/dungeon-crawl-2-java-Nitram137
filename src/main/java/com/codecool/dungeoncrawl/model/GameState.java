@@ -10,18 +10,24 @@ public class GameState extends BaseModel {
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
     private InventoryModel inventory;
+    private double Hscroll;
+    private double Vscroll;
 
-    public GameState(String currentMap, Date savedAt, PlayerModel player, InventoryModel inventory) {
+    public GameState(String currentMap, Date savedAt, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll) {
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.player = player;
         this.inventory = inventory;
+        this.Hscroll = Hscroll;
+        this.Vscroll = Vscroll;
     }
 
-    public GameState(String currentMap, PlayerModel player, InventoryModel inventory) {
+    public GameState(String currentMap, PlayerModel player, InventoryModel inventory, double Hscroll, double Vscroll) {
         this.currentMap = currentMap;
         this.player = player;
         this.inventory = inventory;
+        this.Hscroll = Hscroll;
+        this.Vscroll = Vscroll;
     }
 
     public Date getSavedAt() {
@@ -59,4 +65,12 @@ public class GameState extends BaseModel {
     public InventoryModel getInventory() { return inventory; }
 
     public void setInventory(InventoryModel inventory) { this.inventory = inventory; }
+
+    public double getHscroll() {
+        return Hscroll;
+    }
+
+    public double getVscroll() {
+        return Vscroll;
+    }
 }
