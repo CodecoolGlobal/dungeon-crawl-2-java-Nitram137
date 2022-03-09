@@ -113,6 +113,7 @@ public class GameMap {
             }
             mapAsString.append("\n");
         }
+        mapAsString.append("\n");
         return mapAsString.toString();
     }
 }

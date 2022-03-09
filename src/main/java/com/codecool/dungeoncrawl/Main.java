@@ -41,8 +41,8 @@ public class Main extends Application {
     ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
     Button pickUpItem = new Button("Pick up");
-    String mapName = "/map1.txt";
-    GameMap map = MapLoader.loadMap(mapName);
+    String mapName = "src/main/resources/map1.txt";
+    GameMap map = MapLoader.loadCurrentMap(mapName);
     Player player = map.getPlayer();
     BorderPane borderPane = new BorderPane();
     Canvas canvas = new Canvas(
@@ -266,18 +266,18 @@ public class Main extends Application {
 
     private void changeMap() {
         switch (mapName) {
-            case "/map1.txt":
-                mapName = "/map2.txt";
+            case "src/main/resources/map1.txt":
+                mapName = "src/main/resources/map2.txt";
                 Hscroll = 1.44 / map.getWidth();
                 Vscroll = 1.98 / map.getHeight();
                 break;
-            case "/map2.txt":
-                mapName = "/map3.txt";
+            case "src/main/resources/map2.txt":
+                mapName = "src/main/resources/map3.txt";
                 Hscroll = 1.44 / map.getWidth();
                 Vscroll = 1.98 / map.getHeight();
                 break;
         }
-        map = MapLoader.loadMap(mapName);
+        map = MapLoader.loadCurrentMap(mapName);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
         map.setPlayer(player);
@@ -489,7 +489,7 @@ public class Main extends Application {
 
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
-        map = MapLoader.loadMap("/current_map.txt");
+        map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
         map.setPlayer(player);
