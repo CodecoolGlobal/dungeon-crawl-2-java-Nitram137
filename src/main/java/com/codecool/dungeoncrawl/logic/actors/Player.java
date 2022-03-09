@@ -12,6 +12,7 @@ public class Player extends Actor {
 
     public static final int MAX_HEALTH = 50;
     private Weapon weapon;
+    public String name;
 
     public Player(Cell cell) {
         super(cell);
@@ -144,7 +145,11 @@ public class Player extends Actor {
         return false;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
-        return "Champion of the Light";
+        return name;
     }
 }
