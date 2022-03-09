@@ -56,7 +56,7 @@ public class GameMap {
 
     @Override
     public String toString() {
-        StringBuilder mapAsString = new StringBuilder();
+        StringBuilder mapAsString = new StringBuilder(String.format("%d %d\n", width, height));
         for(Cell[] cellRow : cells) {
             for(Cell cell : cellRow) {
                 if(cell.getActor() != null)
@@ -110,6 +110,7 @@ public class GameMap {
                     default: throw new RuntimeException("Missing tile type");
                 }
             }
+            mapAsString.append("\n");
         }
         return mapAsString.toString();
     }
