@@ -483,6 +483,7 @@ public class Main extends Application {
 
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
+        player.setInventory(gameState.getInventory().convertToInventory());
         map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
