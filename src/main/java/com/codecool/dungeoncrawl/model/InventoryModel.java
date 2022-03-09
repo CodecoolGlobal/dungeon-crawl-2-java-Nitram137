@@ -1,7 +1,11 @@
 package com.codecool.dungeoncrawl.model;
 
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.KeyType;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,5 +127,22 @@ public class InventoryModel extends BaseModel {
 
     public void setStickOfTruth(boolean stickOfTruth) {
         this.stickOfTruth = stickOfTruth;
+    }
+
+    public Map<String, List<Item>> convertToInventory() {
+        Map<String, List<Item>> inventory = new HashMap<>();
+        if (ironKey != 0) {
+            inventory.put("Iron Key", createKeys(ironKey));
+        }
+        return inventory;
+    }
+
+    private List<Item> createKeys(int numberOfKeys) {
+        List<Item> keys = new ArrayList<>();
+        for(int i = 0; i < numberOfKeys; i++) {
+            Key key = new Key(KeyType.IRON_KEY);
+            keys.add(key);
+        }
+        return keys;
     }
 }
