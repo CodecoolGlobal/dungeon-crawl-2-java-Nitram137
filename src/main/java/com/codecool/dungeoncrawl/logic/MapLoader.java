@@ -13,9 +13,16 @@ import java.util.Scanner;
 
 public class MapLoader {
 
+    public static final String CURRENT_MAP = "src/main/resources/current_map.txt";
+
+    public static GameMap loadCurrentMap(String mapToLoadName) {
+        writeMap(loadMap(mapToLoadName).toString());
+        return loadMap(CURRENT_MAP);
+    }
+
     public static void writeMap(String mapString) {
         try {
-            FileWriter myWriter = new FileWriter("/current_map.txt");
+            FileWriter myWriter = new FileWriter(CURRENT_MAP);
             myWriter.write(mapString);
             myWriter.close();
         } catch (IOException e) {
