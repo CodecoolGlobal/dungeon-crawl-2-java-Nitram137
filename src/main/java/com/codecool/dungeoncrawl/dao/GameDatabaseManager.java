@@ -9,6 +9,7 @@ import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -29,6 +30,24 @@ public class GameDatabaseManager {
         playerDao.add(playerModel);
         inventoryDao.add(inventoryModel);
         gameStateDao.add(gameState);
+    }
+
+    public void updateSavedGame(Player player) {
+
+    }
+
+    public boolean isPlayerExists(String playerName) {
+        List<PlayerModel> players = playerDao.getAll();
+        for (PlayerModel player : players) {
+            if (player.getPlayerName().equals(playerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public List<GameState> getAllGameState() {
+        return gameStateDao.getAll();
     }
 
 
