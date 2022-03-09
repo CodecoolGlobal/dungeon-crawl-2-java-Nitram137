@@ -6,10 +6,23 @@ import com.codecool.dungeoncrawl.logic.actors.Shadow;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
+
+    public static void writeMap(String mapString) {
+        try {
+            FileWriter myWriter = new FileWriter("/current_map.txt");
+            myWriter.write(mapString);
+            myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static GameMap loadMap(String mapName) {
         InputStream is = MapLoader.class.getResourceAsStream(mapName);
         Scanner scanner = new Scanner(is);
