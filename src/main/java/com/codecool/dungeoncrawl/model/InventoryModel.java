@@ -144,7 +144,17 @@ public class InventoryModel extends BaseModel {
         if (mjolnir) {
             inventory.put("Mjolnir", createMjolnir());
         }
+        if (theGrimReaper) {
+            inventory.put("The Grim Reaper", createTheGrimReaper());
+        }
         return inventory;
+    }
+
+    private List<Item> createTheGrimReaper() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon theGrimReaper = new Weapon(WeaponType.SCYTHE);
+        weapon.add(theGrimReaper);
+        return weapon;
     }
 
     private List<Item> createMjolnir() {
