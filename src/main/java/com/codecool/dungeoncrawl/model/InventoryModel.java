@@ -138,7 +138,17 @@ public class InventoryModel extends BaseModel {
         if (bigPotion != 0) {
             inventory.put("Big Potion", createBigPotions(bigPotion));
         }
+        if (thunderfury) {
+            inventory.put("Thunderfury", createThunderfury());
+        }
         return inventory;
+    }
+
+    private List<Item> createThunderfury() {
+        List<Item> weapon = new ArrayList<>();
+        Weapon thunderfury = new Weapon(WeaponType.THUNDERFURY);
+        weapon.add(thunderfury);
+        return weapon;
     }
 
     private List<Item> createKeys(int numberOfKeys) {
