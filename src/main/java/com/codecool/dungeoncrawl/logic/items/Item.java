@@ -16,5 +16,5 @@ public abstract class Item implements Drawable {
     public Item() {
     }
 
-    public abstract void useItem(Player player);
+    public abstract void useItem(Player player) throws IllegalArgumentException;
 }
