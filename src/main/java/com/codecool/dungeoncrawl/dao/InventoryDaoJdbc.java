@@ -52,6 +52,7 @@ public class InventoryDaoJdbc implements InventoryDao{
             statement.setBoolean(7, inventory.hasStormbreaker());
             statement.setBoolean(8, inventory.hasFrostmourne());
             statement.setBoolean(9, inventory.hasStickOfTruth());
+            statement.setInt(10, inventory.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
