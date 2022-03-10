@@ -29,4 +29,14 @@ public class PlayerTest {
 
         assertEquals(exceptedSkeletonHealth, skeleton.getHealth());
     }
+
+    @Test
+    void playerHitSkeletonThreeTimesThanSkeletonDies() {
+        Skeleton skeleton = new Skeleton(gameMap.getCell(1,2));
+        player.move(0,1);
+        player.move(0,1);
+        player.move(0,1);
+
+        assertEquals(player, skeleton.getCell().getActor());
+    }
 }
