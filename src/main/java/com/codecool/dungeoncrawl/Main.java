@@ -261,7 +261,11 @@ public class Main extends Application {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     Item item = inventory.get(key).get(0);
-                    item.useItem(map.getPlayer());
+                    try {
+                        item.useItem(map.getPlayer());
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();;
+                    }
                     displayUI();
                     refresh();
                 }
