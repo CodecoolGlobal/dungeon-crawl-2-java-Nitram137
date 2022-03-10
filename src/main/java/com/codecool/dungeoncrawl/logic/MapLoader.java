@@ -79,10 +79,6 @@ public class MapLoader {
                                 cell.setType(CellType.FLOOR);
                                 new Key(cell, KeyType.IRON_KEY);
                                 break;
-                            case 'K':
-                                cell.setType(CellType.FLOOR);
-                                new Key(cell, KeyType.GOLDEN_KEY);
-                                break;
                             case 't':
                                 cell.setType(CellType.FLOOR);
                                 new Weapon(cell, WeaponType.THUNDERFURY);
