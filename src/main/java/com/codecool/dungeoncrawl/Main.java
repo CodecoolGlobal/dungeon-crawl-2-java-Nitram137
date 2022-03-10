@@ -415,7 +415,7 @@ public class Main extends Application {
         yes.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                dbManager.updateSavedGame(player);
+                dbManager.updateSavedGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue(), mapName);
                 saveLoadPopUp.close();
                 alertWindow.close();
             }
@@ -491,11 +491,12 @@ public class Main extends Application {
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
         player.setInventory(gameState.getInventory().convertToInventory());
+        mapName = gameState.getMapName();
         map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
+        player.setHealth(gameState.getPlayer().getHp());
         map.setPlayer(player);
-        mapName = gameState.getMapName();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

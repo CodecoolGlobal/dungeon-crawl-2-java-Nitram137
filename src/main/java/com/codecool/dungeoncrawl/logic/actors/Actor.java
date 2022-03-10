@@ -33,6 +33,10 @@ public abstract class Actor implements Drawable {
         }
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public abstract void act();
 
     public Map<String, List<Item>> getInventory() {
