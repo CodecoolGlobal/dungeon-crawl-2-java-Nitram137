@@ -108,4 +108,14 @@ public class PlayerTest {
 
         assertEquals(weapon, player.getInventory().get(weapon.getTileName()).get(0));
     }
+
+    @Test
+    void getWeaponNameReturnsWeaponTileNameWhenPlayerHasWeapon() {
+        Weapon weapon = new Weapon(gameMap.getCell(1, 1), WeaponType.SCYTHE);
+        player.pickUpItem();
+        weapon.useItem(player);
+
+        String excepted = weapon.getTileName();
+        assertEquals(excepted, player.getWeaponName());
+    }
 }
