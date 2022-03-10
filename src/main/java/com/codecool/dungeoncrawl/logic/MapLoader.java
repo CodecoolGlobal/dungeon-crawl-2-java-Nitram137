@@ -11,7 +11,10 @@ import java.util.Scanner;
 
 public class MapLoader {
 
-    public static final String CURRENT_MAP = "current_map.txt";
+    public static final String CURRENT_MAP = "src/main/resources/current_map.txt";
+    public static final String MAP1 = "src/main/resources/map1.txt";
+    public static final String MAP2 = "src/main/resources/map2.txt";
+    public static final String MAP3 = "src/main/resources/map3.txt";
 
     public static GameMap loadCurrentMap(String mapToLoadName) {
         writeMap(loadMap(mapToLoadName).toString());

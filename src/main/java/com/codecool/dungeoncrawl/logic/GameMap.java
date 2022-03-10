@@ -54,6 +54,18 @@ public class GameMap {
         return height;
     }
 
+    public List<Cell> getStairs() {
+        List<Cell> stairs = new ArrayList<>();
+        for(Cell[] cellRow : cells) {
+            for(Cell cell : cellRow) {
+                if(cell.isCellStairs()) {
+                    stairs.add(cell);
+                }
+            }
+        }
+        return stairs;
+    }
+
     @Override
     public String toString() {
         StringBuilder mapAsString = new StringBuilder(String.format("%d %d\n", width, height));

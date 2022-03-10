@@ -35,13 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Main extends Application {
     ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
     Button pickUpItem = new Button("Pick up");
-    String mapName = "src/main/resources/map1.txt";
+    String mapName = MapLoader.MAP1;
     GameMap map = MapLoader.loadCurrentMap(mapName);
     Player player = map.getPlayer();
     BorderPane borderPane = new BorderPane();
@@ -140,15 +141,29 @@ public class Main extends Application {
                     scrollPane.setHvalue(scrollPane.getHvalue() + map.getHorizontalScroll());
                 break;
         }
+        refresh();
+        displayUI();
         if (!player.isPlayerAlive()) {
             gameOver();
             return;
         }
-        if (player.isPlayerStandOnStairs()) { changeMap(); }
-        refresh();
-        displayUI();
+        if (player.isPlayerStandOnStairs()) mapPassage();
         checkForItems();
         handleEnemies();
+    }
+
+    private void mapPassage() {
+        List<Cell> stairs = map.getStairs();
+        if(stairs.size() == 1) {
+            mapName = MapLoader.MAP2;
+        }
+        else {
+            if(stairs.get(0).isPlayerNear(0))
+                mapName = MapLoader.MAP1;
+            else
+                mapName = MapLoader.MAP3;
+        }
+        changeMap(mapName);
     }
 
     private void refresh() {
@@ -262,15 +277,7 @@ public class Main extends Application {
         }
     }
 
-    private void changeMap() {
-        switch (mapName) {
-            case "src/main/resources/map1.txt":
-                mapName = "src/main/resources/map2.txt";
-                break;
-            case "src/main/resources/map2.txt":
-                mapName = "src/main/resources/map3.txt";
-                break;
-        }
+    private void changeMap(String mapName) {
         map = MapLoader.loadCurrentMap(mapName);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
@@ -408,7 +415,7 @@ public class Main extends Application {
         yes.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                dbManager.updateSavedGame(player);
+                dbManager.updateSavedGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue(), mapName);
                 saveLoadPopUp.close();
                 alertWindow.close();
             }
@@ -484,11 +491,12 @@ public class Main extends Application {
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
         player.setInventory(gameState.getInventory().convertToInventory());
+        mapName = gameState.getMapName();
         map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
+        player.setHealth(gameState.getPlayer().getHp());
         map.setPlayer(player);
-        mapName = gameState.getMapName();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

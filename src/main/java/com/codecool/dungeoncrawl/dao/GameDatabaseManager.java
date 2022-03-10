@@ -32,8 +32,20 @@ public class GameDatabaseManager {
         gameStateDao.add(gameState);
     }
 
-    public void updateSavedGame(Player player) {
+    public void updateSavedGame(Player player, GameMap map, double Hscroll, double Vscroll, String mapName) {
+        GameState gameState = gameStateDao.getGameStateByPlayerName(player.getName());
 
+        PlayerModel playerModel = new PlayerModel(player);
+        playerModel.setId(gameState.getPlayer().getId());
+
+        InventoryModel inventoryModel = new InventoryModel(player.getInventory());
+        inventoryModel.setId(gameState.getInventory().getId());
+
+        GameState newGameState = new GameState(map.toString(), playerModel, inventoryModel, Hscroll, Vscroll, mapName);
+        newGameState.setId(gameState.getId());
+        gameStateDao.update(newGameState);
+        playerDao.update(playerModel);
+        inventoryDao.update(inventoryModel);
     }
 
     public boolean isPlayerExists(String playerName) {
