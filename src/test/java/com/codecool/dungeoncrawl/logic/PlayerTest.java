@@ -96,4 +96,16 @@ public class PlayerTest {
 
         assertEquals(exceptedStrength, Math.abs(player.getDamage()));
     }
+
+    @Test
+    void changeWeaponWhenWeaponIsNotNullTakeBackTheOldWeaponToInventory() {
+        Weapon weapon = new Weapon(gameMap.getCell(1, 1), WeaponType.SCYTHE);
+        player.pickUpItem();
+        weapon.useItem(player);
+        Weapon weapon1 = new Weapon(gameMap.getCell(1, 1), WeaponType.THUNDERFURY);
+        player.pickUpItem();
+        weapon1.useItem(player);
+
+        assertEquals(weapon, player.getInventory().get(weapon.getTileName()).get(0));
+    }
 }
