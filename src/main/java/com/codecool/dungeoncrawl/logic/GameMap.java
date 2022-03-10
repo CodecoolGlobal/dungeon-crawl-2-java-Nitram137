@@ -42,9 +42,7 @@ public class GameMap {
         this.player = player;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
+    public Player getPlayer() { return player; }
 
     public int getWidth() {
         return width;
