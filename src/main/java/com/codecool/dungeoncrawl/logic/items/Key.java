@@ -17,7 +17,8 @@ public class Key extends Item{
     }
 
     @Override
-    public void useItem(Player player) {
+    public void useItem(Player player) throws IllegalArgumentException {
+        if (player == null) {throw new IllegalArgumentException();}
         Cell door = player.getDoorNextToPlayer();
         if (door != null) {
             door.setCellToOpenedDoor();

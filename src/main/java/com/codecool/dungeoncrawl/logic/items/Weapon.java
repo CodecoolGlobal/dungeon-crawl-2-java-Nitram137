@@ -22,7 +22,8 @@ public class Weapon extends Item {
     }
 
     @Override
-    public void useItem(Player player) {
+    public void useItem(Player player) throws IllegalArgumentException {
+        if (player == null) {throw new IllegalArgumentException();}
         player.changeWeapon(this);
     }
 
