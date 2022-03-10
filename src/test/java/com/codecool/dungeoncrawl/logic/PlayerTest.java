@@ -124,4 +124,15 @@ public class PlayerTest {
         String excepted = "No weapon";
         assertEquals(excepted, player.getWeaponName());
     }
+
+    @Test
+    void drinkPotionDontChangePlayerHealthWhenItsFull() {
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        player.pickUpItem();
+        player.drinkPotion(potion);
+
+        int excepted = Player.MAX_HEALTH;
+
+        assertEquals(excepted, player.getHealth());
+    }
 }
