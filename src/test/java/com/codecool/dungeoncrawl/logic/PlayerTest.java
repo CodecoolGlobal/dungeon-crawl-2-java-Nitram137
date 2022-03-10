@@ -118,4 +118,10 @@ public class PlayerTest {
         String excepted = weapon.getTileName();
         assertEquals(excepted, player.getWeaponName());
     }
+
+    @Test
+    void getWeaponNameReturnsNoWeaponWhenPlayerHasNoWeapon() {
+        String excepted = "No weapon";
+        assertEquals(excepted, player.getWeaponName());
+    }
 }
