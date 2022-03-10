@@ -2,9 +2,7 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
-import com.codecool.dungeoncrawl.logic.items.Item;
-import com.codecool.dungeoncrawl.logic.items.Potion;
-import com.codecool.dungeoncrawl.logic.items.PotionType;
+import com.codecool.dungeoncrawl.logic.items.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -84,5 +82,18 @@ public class PlayerTest {
 
         assertEquals(exceptedList, player.getInventory().get(exceptedItemName));
         assertEquals(exceptedKeysNumber, player.getInventory().keySet().size());
+    }
+
+    @Test
+    void changeWeaponEquipNewWeaponWhenPlayerWeaponIsNotNull() {
+        Weapon weapon = new Weapon(gameMap.getCell(1, 1), WeaponType.SCYTHE);
+        player.pickUpItem();
+        weapon.useItem(player);
+        Weapon weapon1 = new Weapon(gameMap.getCell(1, 1), WeaponType.THUNDERFURY);
+        player.pickUpItem();
+        weapon1.useItem(player);
+        int exceptedStrength = 13;
+
+        assertEquals(exceptedStrength, Math.abs(player.getDamage()));
     }
 }
