@@ -2,10 +2,14 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Potion;
 import com.codecool.dungeoncrawl.logic.items.PotionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,5 +56,17 @@ public class PlayerTest {
     void isPlayerStandOnItemReturnsFalseWhenPlayersCellItemIsNull() {
         Potion potion = new Potion(gameMap.getCell(1, 2), PotionType.POTION);
         assertFalse(player.isPlayerStandingInItem());
+    }
+
+    @Test
+    void pickUpItemPushOneKeyWithOneLengthArrayListWhenPlayerPickUpItem() {
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        player.pickUpItem();
+        int exceptedKeysNumber = 1;
+        String exceptedItemName = potion.getTileName();
+        List<Item> exceptedList = List.of(potion);
+
+        assertEquals(exceptedList, player.getInventory().get(exceptedItemName));
+        assertEquals(exceptedKeysNumber, player.getInventory().keySet().size());
     }
 }
