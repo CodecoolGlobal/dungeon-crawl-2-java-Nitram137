@@ -35,13 +35,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Main extends Application {
     ScrollPane scrollPane = new ScrollPane();
     GridPane ui = new GridPane();
     Button pickUpItem = new Button("Pick up");
-    String mapName = "src/main/resources/map1.txt";
+    String mapName = MapLoader.MAP1;
     GameMap map = MapLoader.loadCurrentMap(mapName);
     Player player = map.getPlayer();
     BorderPane borderPane = new BorderPane();
@@ -144,7 +145,19 @@ public class Main extends Application {
             gameOver();
             return;
         }
-        if (player.isPlayerStandOnStairs()) { changeMap(); }
+        if (player.isPlayerStandOnStairs()) {
+            List<Cell> stairs = map.getStairs();
+            if(stairs.size() == 1) {
+                mapName = MapLoader.MAP2;
+            }
+            else {
+                if(stairs.get(0).isPlayerNear(0))
+                    mapName = MapLoader.MAP1;
+                else
+                    mapName = MapLoader.MAP3;
+            }
+            changeMap(mapName);
+        }
         refresh();
         displayUI();
         checkForItems();
@@ -262,15 +275,7 @@ public class Main extends Application {
         }
     }
 
-    private void changeMap() {
-        switch (mapName) {
-            case "src/main/resources/map1.txt":
-                mapName = "src/main/resources/map2.txt";
-                break;
-            case "src/main/resources/map2.txt":
-                mapName = "src/main/resources/map3.txt";
-                break;
-        }
+    private void changeMap(String mapName) {
         map = MapLoader.loadCurrentMap(mapName);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
