@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.items.Potion;
+import com.codecool.dungeoncrawl.logic.items.PotionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +40,17 @@ public class PlayerTest {
         player.move(0,1);
 
         assertEquals(player, skeleton.getCell().getActor());
+    }
+
+    @Test
+    void isPlayerStandsOnItemReturnsTrueWhenPlayersCellHasAnItem() {
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        assertTrue(player.isPlayerStandingInItem());
+    }
+
+    @Test
+    void isPlayerStandOnItemReturnsFalseWhenPlayersCellItemIsNull() {
+        Potion potion = new Potion(gameMap.getCell(1, 2), PotionType.POTION);
+        assertFalse(player.isPlayerStandingInItem());
     }
 }
