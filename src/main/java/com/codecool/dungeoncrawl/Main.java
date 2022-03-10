@@ -141,27 +141,29 @@ public class Main extends Application {
                     scrollPane.setHvalue(scrollPane.getHvalue() + map.getHorizontalScroll());
                 break;
         }
+        refresh();
+        displayUI();
         if (!player.isPlayerAlive()) {
             gameOver();
             return;
         }
-        if (player.isPlayerStandOnStairs()) {
-            List<Cell> stairs = map.getStairs();
-            if(stairs.size() == 1) {
-                mapName = MapLoader.MAP2;
-            }
-            else {
-                if(stairs.get(0).isPlayerNear(0))
-                    mapName = MapLoader.MAP1;
-                else
-                    mapName = MapLoader.MAP3;
-            }
-            changeMap(mapName);
-        }
-        refresh();
-        displayUI();
+        if (player.isPlayerStandOnStairs()) mapPassage();
         checkForItems();
         handleEnemies();
+    }
+
+    private void mapPassage() {
+        List<Cell> stairs = map.getStairs();
+        if(stairs.size() == 1) {
+            mapName = MapLoader.MAP2;
+        }
+        else {
+            if(stairs.get(0).isPlayerNear(0))
+                mapName = MapLoader.MAP1;
+            else
+                mapName = MapLoader.MAP3;
+        }
+        changeMap(mapName);
     }
 
     private void refresh() {
