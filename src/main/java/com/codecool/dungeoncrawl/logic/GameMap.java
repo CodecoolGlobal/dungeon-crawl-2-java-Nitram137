@@ -118,19 +118,11 @@ public class GameMap {
                         break;
                     case "stairs": mapAsString.append("L");
                         break;
-                    default: throw new RuntimeException("Missing tile type");
                 }
             }
             mapAsString.append("\n");
         }
         mapAsString.append("\n");
         return mapAsString.toString();
-    }
-
-    public double getHorizontalScroll() {
-        return 1.44 / width;
-    }
-    public double getVerticalScroll() {
-        return 1.98 / height;
     }
 }

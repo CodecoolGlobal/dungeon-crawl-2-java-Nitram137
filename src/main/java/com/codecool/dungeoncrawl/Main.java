@@ -123,22 +123,22 @@ public class Main extends Application {
             case UP:
                 player.move(0, -1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() - map.getVerticalScroll());
+                    scrollPane.setVvalue(scrollPane.getVvalue() - 1.98 / map.getHeight());
                 break;
             case DOWN:
                 player.move(0, 1);
                 if(lastCell != player.getCell())
-                    scrollPane.setVvalue(scrollPane.getVvalue() + map.getVerticalScroll());
+                    scrollPane.setVvalue(scrollPane.getVvalue() + 1.98 / map.getHeight());
                 break;
             case LEFT:
                 player.move(-1, 0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() - map.getHorizontalScroll());
+                    scrollPane.setHvalue(scrollPane.getHvalue() - 1.44 / map.getWidth());
                 break;
             case RIGHT:
                 player.move(1,0);
                 if(lastCell != player.getCell())
-                    scrollPane.setHvalue(scrollPane.getHvalue() + map.getHorizontalScroll());
+                    scrollPane.setHvalue(scrollPane.getHvalue() + 1.44 / map.getWidth());
                 break;
         }
         refresh();
