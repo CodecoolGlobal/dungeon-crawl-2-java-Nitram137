@@ -12,6 +12,10 @@ public class Key extends Item{
         this.type = type;
     }
 
+    public Key(KeyType type) {
+        super();
+    }
+
     @Override
     public void useItem(Player player) {
         Cell door = player.getDoorNextToPlayer();

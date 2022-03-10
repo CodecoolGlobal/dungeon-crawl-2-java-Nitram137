@@ -12,6 +12,11 @@ public class Weapon extends Item {
         this.type = type;
     }
 
+    public Weapon(WeaponType type) {
+        super();
+        this.type = type;
+    }
+
     public int getDamage() {
         return type.getDamage();
     }

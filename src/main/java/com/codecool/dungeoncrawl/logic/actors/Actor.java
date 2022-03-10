@@ -10,7 +10,7 @@ import java.util.Map;
 
 public abstract class Actor implements Drawable {
 
-    protected final Map<String, List<Item>> inventory = new HashMap<>();
+    protected Map<String, List<Item>> inventory = new HashMap<>();
 
     protected Cell cell;
     protected int health = 10;

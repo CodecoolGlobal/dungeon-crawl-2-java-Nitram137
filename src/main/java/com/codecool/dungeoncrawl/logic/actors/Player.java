@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.items.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Player extends Actor {
 
@@ -151,5 +152,9 @@ public class Player extends Actor {
 
     public String getName() {
         return name;
+    }
+
+    public void setInventory(Map<String, List<Item>> inventory) {
+        this.inventory = inventory;
     }
 }

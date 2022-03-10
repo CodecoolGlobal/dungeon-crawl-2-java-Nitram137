@@ -384,7 +384,7 @@ public class Main extends Application {
                 if (dbManager.isPlayerExists(playerName)) {
                     createAlertWindow();
                 } else {
-                    dbManager.saveGame(player, map);
+                    dbManager.saveGame(player, map, scrollPane.getHvalue(), scrollPane.getVvalue(), mapName);
                     saveLoadPopUp.close();
                 }
             }
@@ -488,10 +488,12 @@ public class Main extends Application {
 
     private void loadGame(GameState gameState) {
         MapLoader.writeMap(gameState.getCurrentMap());
+        player.setInventory(gameState.getInventory().convertToInventory());
         map = MapLoader.loadMap(MapLoader.CURRENT_MAP);
         Cell cell = map.getPlayer().getCell();
         player.setCell(cell);
         map.setPlayer(player);
+        mapName = gameState.getMapName();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);
@@ -501,6 +503,9 @@ public class Main extends Application {
 
         scrollPane.pannableProperty().set(true);
         scrollPane.setContent(canvas);
+
+        scrollPane.setHvalue(gameState.getHscroll());
+        scrollPane.setVvalue(gameState.getVscroll());
 
         scrollPane.hbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.NEVER);
