@@ -173,4 +173,11 @@ public class PlayerTest {
         Cell excepted = gameMap.getCell(1, 2);
         assertEquals(excepted, player.getDoorNextToPlayer());
     }
+
+    @Test
+    void isPlayerHasStickReturnsTrueIfThePlayerPickedUpTheStick() {
+        Weapon weapon = new Weapon(gameMap.getCell(1,1), WeaponType.STICK);
+        player.pickUpItem();
+        assertTrue(player.isPlayerHasStick());
+    }
 }
