@@ -166,4 +166,11 @@ public class PlayerTest {
         Cell cell = player.getDoorNextToPlayer();
         assertNull(cell);
     }
+
+    @Test
+    void getDoorNextToPlayerReturnsDoorCellWhenThereIsDoorNextToPlayer() {
+        gameMap.getCell(1,2).setType(CellType.CLOSED_DOOR);
+        Cell excepted = gameMap.getCell(1, 2);
+        assertEquals(excepted, player.getDoorNextToPlayer());
+    }
 }
