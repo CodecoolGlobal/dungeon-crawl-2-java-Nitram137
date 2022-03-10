@@ -160,4 +160,10 @@ public class PlayerTest {
 
         assertEquals(excepted, player.getHealth());
     }
+
+    @Test
+    void getDoorNextToPlayerReturnsNullWhenThereIsNoDoorNextToPlayer() {
+        Cell cell = player.getDoorNextToPlayer();
+        assertNull(cell);
+    }
 }
