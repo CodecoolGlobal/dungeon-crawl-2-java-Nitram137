@@ -5,11 +5,9 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Shadow;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.items.*;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,5 +70,18 @@ class GameMapTest {
         String expected = "4 5\n d@m\n.Lkc\n#spT\n%SPF\nDNtQ\n\n";
         String actual = mapUnderTest.toString();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void testMapLoader() {
+        MapLoader.writeMap("4 5\n d@m\n.Lkc\n#spT\n%SPF\nDNtQ\n\n");
+        GameMap actualMap = MapLoader.loadCurrentMap(MapLoader.CURRENT_MAP);
+        for(int i=0;i<actualMap.getWidth();i++) {
+            for (int j = 0; j < actualMap.getHeight(); j++) {
+                Cell actualMapCell = actualMap.getCell(i, j);
+                Cell mapUnderTestCell = mapUnderTest.getCell(i, j);
+                assertEquals(actualMapCell.getTileName(), mapUnderTestCell.getTileName());
+            }
+        }
     }
 }
