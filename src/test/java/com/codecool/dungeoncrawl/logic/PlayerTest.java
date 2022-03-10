@@ -135,4 +135,16 @@ public class PlayerTest {
 
         assertEquals(excepted, player.getHealth());
     }
+
+    @Test
+    void drinkPotionDoesNotSetUpHigherHealthThanMAX_HEALTH() {
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        player.setHealth(45);
+        player.pickUpItem();
+        player.drinkPotion(potion);
+
+        int excepted = Player.MAX_HEALTH;
+
+        assertEquals(excepted, player.getHealth());
+    }
 }
