@@ -44,13 +44,41 @@ public class GameStateDaoJdbc implements GameStateDao {
     @Override
     public void update(GameState state) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE game_state SET current_map = ?, player_id = ?, inventory_id = ? WHERE id = ?";
+            String sql = "UPDATE game_state SET current_map = ?, player_id = ?, inventory_id = ?, hscroll = ?, vscroll = ?, map_name = ? WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, state.getCurrentMap());
             statement.setInt(2, state.getPlayer().getId());
             statement.setInt(3, state.getInventory().getId());
+            statement.setDouble(4, state.getHscroll());
+            statement.setDouble(5, state.getVscroll());
+            statement.setString(6, state.getMapName());
+            statement.setInt(7, state.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public GameState getGameStateByPlayerName(String playerName) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT game_state.id, current_map, saved_at, player_id, inventory_id, hscroll, vscroll, " +
+                    "map_name FROM game_state JOIN player p on p.id = game_state.player_id WHERE player_name = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, playerName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(!resultSet.next()) return null;
+            int playerId = resultSet.getInt(4);
+            int inventoryId = resultSet.getInt(5);
+            double Hscroll = resultSet.getDouble(6);
+            double Vscroll = resultSet.getDouble(7);
+            String mapName = resultSet.getString(8);
+            PlayerModel player = playerDao.get(playerId);
+            InventoryModel inventory = inventoryDao.get(inventoryId);
+            GameState state = new GameState(resultSet.getString(2), resultSet.getDate(3), player, inventory, Hscroll, Vscroll, mapName);
+            state.setId(resultSet.getInt(1));
+            return state;
+        } catch(SQLException e) {
             throw new RuntimeException(e);
         }
     }
