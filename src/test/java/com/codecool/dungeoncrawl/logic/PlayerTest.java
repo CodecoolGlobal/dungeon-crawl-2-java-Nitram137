@@ -69,4 +69,20 @@ public class PlayerTest {
         assertEquals(exceptedList, player.getInventory().get(exceptedItemName));
         assertEquals(exceptedKeysNumber, player.getInventory().keySet().size());
     }
+
+    @Test
+    void pickUpMultipleItemFromSameTypeIncreaseTheListSize() {
+        List<Item> exceptedList = new ArrayList<>();
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        exceptedList.add(potion);
+        player.pickUpItem();
+        potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        exceptedList.add(potion);
+        player.pickUpItem();
+        int exceptedKeysNumber = 1;
+        String exceptedItemName = potion.getTileName();
+
+        assertEquals(exceptedList, player.getInventory().get(exceptedItemName));
+        assertEquals(exceptedKeysNumber, player.getInventory().keySet().size());
+    }
 }
