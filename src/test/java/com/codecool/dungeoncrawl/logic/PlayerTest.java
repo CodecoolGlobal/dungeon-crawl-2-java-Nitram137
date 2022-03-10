@@ -147,4 +147,17 @@ public class PlayerTest {
 
         assertEquals(excepted, player.getHealth());
     }
+
+    @Test
+    void drinkPotionIncreaseHealthWithPotionHealthRegen() {
+        int health = 30;
+        Potion potion = new Potion(gameMap.getCell(1,1), PotionType.POTION);
+        player.setHealth(health);
+        player.pickUpItem();
+        player.drinkPotion(potion);
+
+        int excepted = health + potion.getHealthRegen();
+
+        assertEquals(excepted, player.getHealth());
+    }
 }
