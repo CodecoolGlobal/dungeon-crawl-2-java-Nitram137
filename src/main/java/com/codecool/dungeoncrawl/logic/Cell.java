@@ -29,12 +29,6 @@ public class Cell implements Drawable {
 
     public int getPlayerY() { return gameMap.getPlayer().getY(); }
 
-    public int getPlayerStrength() { return Math.abs(gameMap.getPlayer().getDamage()); }
-
-    public CellType getType() {
-        return type;
-    }
-
     public void setType(CellType type) {
         this.type = type;
     }
